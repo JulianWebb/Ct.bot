@@ -65,9 +65,6 @@ module.exports = {
         // TODO: Get documentation based off term
     },
     getTopics(docs) {
-        const keys = new Map();
-        for (const item of docs) {
-            // TODO: Get all titles
-        }
+        docs.forEach((k, v) => console.log(k, v))
     }
 }
