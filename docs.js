@@ -1,7 +1,8 @@
 const shell = require('shelljs');
-const mdjson = require('md-2-json');
+const Markdown = require('@dimerapp/markdown');
 const p = require('path');
 const fs = require('fs');
+const { Collection } = require('discord.js');
 
 const docrepo = 'https://github.com/ct-js/docs.ctjs.rocks.git';
 const docpath = 'ctjs_docs';
@@ -46,24 +47,27 @@ module.exports = {
         }
     },
     // Returns all markdown files' names with converted objects
-    parse() {
+    async parse() {
         const mdFiles = getFilesRecursively('docs');
-
         // Create index
         let index = new Map();
-        for (file of mdFiles) {
-            index.set(file, mdjson.parse(fs.readFileSync(file, 'utf-8')));
+        for (const file of mdFiles) {
+            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
+            console.log(mdFilename)
+            const raw = fs.readFileSync(file, 'utf-8');
+            const md = new Markdown(raw, {});
+            const content = await md.toJSON();
+            index.set(mdFilename, {content: content, filename: file});
         }
-        return index = Object.fromEntries(index);
+        return index;
     },
     query(docs, term) {
         // TODO: Get documentation based off term
     },
-    listTopics() {
-        let keys = new Array();
-        for (key in obj.keys) {
-            keys.push(key);
+    getTopics(docs) {
+        const keys = new Map();
+        for (const item of docs) {
+            // TODO: Get all titles
         }
-        return keys;
     }
 }
