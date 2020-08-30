@@ -4,7 +4,8 @@
   "description": "Documentation lookup bot for Ct.js Discord",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "style": "prettier --write **/*.js **/*.json !ctjs_docs"
   },
   "keywords": [],
   "author": "yonderbread",
@@ -17,5 +18,8 @@
     "md-2-json": "^1.0.6",
     "shelljs": "^0.8.4",
     "time-stamp": "^2.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.1"
   }
 }
