@@ -9,7 +9,7 @@ module.exports = {
             color: 'AQUA',
             title: 'Ct.js Links & Resources',
             image: {
-                url: 'https://github.com/ct-js/ct-js/blob/develop/branding/GithubHeader.png'
+                url: 'https://raw.githubusercontent.com/ct-js/ct-js/develop/branding/GithubHeader.png'
             },
             fields: [
                 {
