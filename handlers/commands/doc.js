@@ -6,5 +6,5 @@ module.exports = {
     description: 'View documentation topics by keyword.',
     run(message, args) {
         console.log(message.client.docs);
-    },
+    }
 };
