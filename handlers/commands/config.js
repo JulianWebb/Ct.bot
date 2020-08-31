@@ -24,15 +24,20 @@ module.exports = {
                         description: `${message.member.user.tag} updated the status.`,
                         fields: [
                             {
-                                name: 'Old Status',
-                                value: `${old_status}`,
-                            },
-                            {
                                 name: 'New Status',
                                 value: `${new_status}`,
                             },
                         ],
                     };
+
+                    if (old_status != '') {
+                        newStatusEmbed.fields.push(
+                            {
+                                name: 'Old Status',
+                                value: `${old_status}`
+                            }
+                        )
+                    }
                     return message.channel.send({
                         embed: newStatusEmbed,
                     });
