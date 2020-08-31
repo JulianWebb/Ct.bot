@@ -1,6 +1,5 @@
 const Embeds = require('../../embeds.js');
-const { logger } = require('../../index.js');
-const { config } = require('../index.js');
+const { logger, config } = require('../../index.js');
 
 module.exports = {
     name: 'purge',

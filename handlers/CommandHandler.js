@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Collection = require('discord.js').Collection;
-const logger = require('../index').logger;
+const { logger } = require('../index.js');
 
 module.exports = {
     register(client) {
