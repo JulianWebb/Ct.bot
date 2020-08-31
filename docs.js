@@ -58,7 +58,7 @@ module.exports = {
         // Create index
         let index = new Map();
         for (const file of mdFiles) {
-            const parser = Parser();
+            const parser = new Parser();
 
             const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
             console.log(mdFilename);
