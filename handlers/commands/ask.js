@@ -12,10 +12,10 @@ module.exports = {
         }
         const question = args.join(' ').toLowerCase();
         let value = null;
-        database.child(question).once('value', (snap) => {
+        database.child(question).once('value', async (snap) => {
             value = snap.val();
             if (value === null) {
-                message.channel
+                const msg = await message.channel
                     .send(
                         new MessageEmbed()
                             .setTitle(
@@ -26,7 +26,17 @@ module.exports = {
                                 'Requested by ' + message.member.user.tag,
                             ),
                     )
-                    .then((msg) => msg.react('👍'));
+                await msg.react('👍');
+
+                const filter = (reaction, user) => { return reaction.emoji.name === '👍' && user.id === message.author.id };
+                msg.awaitReactions(filter, {max: 1, time: 60000, errors: ['time']})
+                .then(reactions => {
+                    const reaction = collected.first();
+
+                    if (reaction.emoji.name === '👍') {
+                        message.reply('We have sent you a DM message.');
+                    }
+                }).catch(reactions => message.reply('Timed out.'));
             } else {
                 message.channel.send(
                     new MessageEmbed()
