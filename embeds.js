@@ -16,5 +16,5 @@ module.exports = {
             .setColor(color)
             .setDescription(description)
             .addField('Read More..', link);
-    }
+    },
 };

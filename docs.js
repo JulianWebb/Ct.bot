@@ -5,7 +5,6 @@ const p = require('path');
 const fs = require('fs-extra');
 const getHeadings = require('markdown-headings');
 
-
 const logger = require('./index.js').logger;
 
 const { Collection } = require('discord.js');
@@ -18,15 +17,17 @@ shell.cd(p.join(__dirname, docpath));
 // https://stackoverflow.com/a/47492545/13825612
 const isDirectory = (path) => fs.statSync(path).isDirectory();
 const getDirectories = (path) =>
-    fs.readdirSync(path)
-    .map((name) => p.join(path, name))
-    .filter(isDirectory);
+    fs
+        .readdirSync(path)
+        .map((name) => p.join(path, name))
+        .filter(isDirectory);
 
 const isMarkdown = (path) => path.endsWith('.md');
 const getFiles = (path) =>
-    fs.readdirSync(path)
-    .map((name) => p.join(path, name))
-    .filter(isMarkdown);
+    fs
+        .readdirSync(path)
+        .map((name) => p.join(path, name))
+        .filter(isMarkdown);
 
 const getFilesRecursively = (path) => {
     let dirs = getDirectories(path);
@@ -45,15 +46,18 @@ module.exports = {
             try {
                 shell.exec(`git clone ${docrepo} ${docpath}`);
                 shell.cd(`${docpath}/docs`);
-                shell.ls('-d','.').forEach((dir) => {
-                    if (!['.vuepress','images'].includes(dir)) {
+                shell.ls('-d', '.').forEach((dir) => {
+                    if (!['.vuepress', 'images'].includes(dir)) {
                         shelljs.rm(dir);
                         logger.info('Removed dir: ' + dir);
                     }
-                })
+                });
             } catch (err) {
                 // Whoops something bad happened
-                logger.warn('There was an error retrieving the documentation from ' + docrepo);
+                logger.warn(
+                    'There was an error retrieving the documentation from ' +
+                        docrepo,
+                );
             }
         } else {
             // Update the repo
@@ -77,10 +81,9 @@ module.exports = {
         rawFiles = await Promise.all(rawFiles);
         for (let i = 0, l = rawFiles.length; i < l; i++) {
             const headings = getHeadings(rawFiles[i]),
-                  filename = filenames[i],
-                  title = headings[0].replace(/^#+\s?/, '')
+                filename = filenames[i],
+                title = headings[0].replace(/^#+\s?/, '');
             index[filename] = { headings, filename, title };
-
         }
         return index;
     },

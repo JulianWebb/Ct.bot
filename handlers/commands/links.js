@@ -9,45 +9,44 @@ module.exports = {
             color: 'AQUA',
             title: 'Ct.js Links & Resources',
             image: {
-                url: 'https://github.com/yonderbread/Ct.bot/raw/master/assets/splash.png'
+                url:
+                    'https://github.com/yonderbread/Ct.bot/raw/master/assets/splash.png',
             },
             fields: [
                 {
                     name: 'Website',
-                    value: links.website
+                    value: links.website,
                 },
                 {
                     name: 'Documentation',
-                    value: links.documentation
+                    value: links.documentation,
                 },
                 {
                     name: 'Github',
-                    value: links.github
+                    value: links.github,
                 },
                 {
                     name: 'Itch.io',
-                    value: links.itch
+                    value: links.itch,
                 },
                 {
                     name: 'Discord Invite',
-                    value: links.discord
+                    value: links.discord,
                 },
                 {
                     name: 'Twitter',
-                    value: links.twitter
+                    value: links.twitter,
                 },
                 {
                     name: 'Patreon',
-                    value: links.patreon
-                }
+                    value: links.patreon,
+                },
             ],
-            timestamp: new Date()
-        }
+            timestamp: new Date(),
+        };
 
-        message.channel.send(
-            {
-                embed: linkEmbed
-            }
-        )
-    }
-}
+        message.channel.send({
+            embed: linkEmbed,
+        });
+    },
+};

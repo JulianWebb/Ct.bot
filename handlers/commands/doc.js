@@ -4,17 +4,14 @@ const slugger = require('github-slugger');
 
 let cachedDocs = {};
 docs.clone();
-docs.parse().then(docs => cachedDocs = docs);
+docs.parse().then((docs) => (cachedDocs = docs));
 
 module.exports = {
     name: 'doc',
     description: 'View documentation topics by keyword.',
     run(message, args) {
         if (!args || !args.length) {
-            message.channel.send(Embeds.info(
-                '#446adb',
-
-            ));
+            message.channel.send(Embeds.info('#446adb'));
             return;
         }
         const query = args.join(' ');
@@ -25,10 +22,14 @@ module.exports = {
                     let strippedHeading = heading
                         .replace(/^#+\s?/, '')
                         .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
-                    const slug = slugger.slug(strippedHeading.replace(/\./g, '-').toLowerCase());
+                    const slug = slugger.slug(
+                        strippedHeading.replace(/\./g, '-').toLowerCase(),
+                    );
                     results.push({
                         name: `${strippedHeading} at ${cachedDocs[file].title}`,
-                        value: `https://docs.ctjs.rocks/${file.slice(5)}.html#${slug}`
+                        value: `https://docs.ctjs.rocks/${file.slice(
+                            5,
+                        )}.html#${slug}`,
                     });
                 }
             }
@@ -37,17 +38,17 @@ module.exports = {
             message.channel.send({
                 embed: {
                     color: 'RED',
-                    title: 'Nothing found :c'
-                }
+                    title: 'Nothing found :c',
+                },
             });
             return;
         }
         message.channel.send({
             embed: {
                 color: 'AQUA',
-                title: 'Here is what I\'ve found:',
-                fields: results
-            }
+                title: "Here is what I've found:",
+                fields: results,
+            },
         });
-    }
+    },
 };

@@ -20,7 +20,8 @@ client.on('ready', () => {
         } started at ${new Date()}]`,
     );
     logger.success('Online!');
-    client.user.setActivity(config.status, {type: 'Playing'})
+    client.user.setActivity('Online!');
+    setTimeout(() => client.user.setActivity(config.status), 5000);
 });
 
 client.on('message', (message) => {
