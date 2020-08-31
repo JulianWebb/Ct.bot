@@ -62,7 +62,6 @@ module.exports = {
             const parser = new Parser();
 
             const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
-            console.log(mdFilename);
             const raw = fs.readFileSync(file, 'utf-8');
             const md = parser.parse(raw);
             index.set(mdFilename, { content: md, filename: file });
