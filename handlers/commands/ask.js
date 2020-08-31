@@ -2,10 +2,11 @@ const Embeds = require('../../embeds.js');
 const { database, createAnswer } = require('../../database.js');
 const { MessageEmbed, Message } = require('discord.js');
 const logger = require('../../index.js').logger;
+const msgs = require('../../messages.json');
 
 module.exports = {
     name: 'ask',
-    description: 'Checks if the database has an answer to the question',
+    description: 'Checks for answers to previously asked questions',
     run(message = new Message(), args) {
         if (!args || !args.length) {
             message.channel.send(Embeds.info('#446adb'));
@@ -19,8 +20,8 @@ module.exports = {
                 const msg = await message.channel.send(
                     new MessageEmbed()
                         .setTitle(
-                            `Couldn't find an answer :c\n\nKnow the answer? React with 👍 to add the answer!`,
-                        )
+                            msgs.commands.ask.no_answer.title,
+                        ).setDescription(msgs.commands.ask.no_answer.description)
                         .setColor('RED')
                         .setFooter('Requested by ' + message.member.user.tag),
                 );
@@ -43,9 +44,9 @@ module.exports = {
                         if (reaction.emoji.name === '👍') {
                             message.author.createDM().then((dmChannel) => {
                                 dmChannel.send(
-                                    `Please reply with your answer to the question '${question}' (in one message).`,
+                                    msgs.commands.ask.dm_message.replace('{question}',`\`${question}\``),
                                 );
-                                message.reply('We have sent you a DM message.');
+                                message.reply(msgs.commands.ask.sent_dm);
                                 const filter = (m) =>
                                     m.author.id !== message.client.user.id;
                                 const collector = dmChannel.createMessageCollector(
@@ -80,7 +81,13 @@ module.exports = {
                         }
                     })
                     .catch((reactions) =>
-                        message.reply('Timed out or errored.'),
+                        message.reply({
+                            embed: {
+                                color: 'RED',
+                                title: msgs.commands.ask.timed_out.title, 
+                                description: msgs.commands.ask.timed_out.title
+                            }
+                        }),
                     );
             } else {
                 message.channel.send(

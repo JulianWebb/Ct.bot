@@ -22,7 +22,9 @@
             "timed_out": {
                 "title": "Timed Out",
                 "description": "Took to long to react."
-            }
+            },
+            "sent_dm": "Sent you a DM message.",
+            "dm_message": "Please reply with your answer to the question {question} (in one message)."
         },
         "config": {
             "invalid_status": {
