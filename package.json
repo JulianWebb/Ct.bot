@@ -14,7 +14,7 @@
         "chalk": "^4.1.0",
         "discord.js": "^12.3.1",
         "log4js": "^6.3.0",
-        "markdown-parser": "0.0.8",
+        "markdown-parser": "git+https://github.com/yonderbread/markdown-parser.git",
         "shelljs": "^0.8.4",
         "time-stamp": "^2.2.0"
     },
