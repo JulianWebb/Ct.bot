@@ -16,6 +16,7 @@
         "fs-extra": "^9.0.1",
         "github-slugger": "^1.3.0",
         "log4js": "^6.3.0",
+
         "markdown-headings": "^2.0.0",
         "shelljs": "^0.8.4",
         "time-stamp": "^2.2.0"

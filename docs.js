@@ -1,7 +1,12 @@
 const shell = require('shelljs');
 const p = require('path');
+
 const fs = require('fs-extra');
 const getHeadings = require('markdown-headings');
+
+
+const logger = require('./index.js').logger;
+
 const { Collection } = require('discord.js');
 
 const docrepo = 'https://github.com/ct-js/docs.ctjs.rocks.git';
@@ -40,7 +45,7 @@ module.exports = {
                 shell.exec(`git clone ${docrepo} ctjs_docs`);
             } catch (err) {
                 // Whoops something bad happened
-                console.log(err);
+                logger.warn('There was an error retrieving the documentation from ' + docrepo);
             }
         } else {
             // Update the repo
@@ -57,7 +62,8 @@ module.exports = {
         let rawFiles = [];
         const filenames = [];
         for (const file of mdFiles) {
-            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
+
+            
             filenames.push(mdFilename);
             rawFiles.push(fs.readFile(file, 'utf-8'));
         }
@@ -67,6 +73,14 @@ module.exports = {
                   filename = filenames[i],
                   title = headings[0].replace(/^#+\s?/, '')
             index[filename] = { headings, filename, title };
+
+            const parser = new Parser();
+
+            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
+            const raw = fs.readFileSync(file, 'utf-8');
+            const md = parser.parse(raw);
+            index.set(mdFilename, { content: md, filename: file });
+
         }
         return index;
     },
