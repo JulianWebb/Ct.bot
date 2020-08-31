@@ -43,6 +43,11 @@ class wlConfig extends BaseConfig {
         this.data.administrators.push(id);
         this.save();
     }
+
+    removeAdmin(id) {
+        this.data.administrators.pop(this.data.administrators.indexOf(id));
+        this.save();
+    }
 }
 
 class ConfigJSON extends BaseConfig {

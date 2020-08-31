@@ -6,7 +6,7 @@ module.exports = {
     name: 'config',
     description: 'Configure this bot instance.',
     run(message = new Message(), args) {
-        if (wlConfig.data.administrators.includes(message.author.id)) {
+        if (wlConfig.data.administrators.includes(message.author.id) || message.member.permissions.has('ADMINISTRATOR')) {
             if (args[0]) {
                 if (args[0] === 'status') {
                     if (args.length >= 2) {
@@ -55,9 +55,19 @@ module.exports = {
                     if (args.length >= 2) {
                         const member = message.guild.members.cache.get(args[1]);
                         if (member) {
+                            if (wlConfig.data.administrators.includes(member.id)) {
+                                wlConfig.removeAdmin(member.id);
+                                return message.reply({
+                                    embed: {
+                                        title: 'Success!',
+                                        color: 'GREEN',
+                                        description: `Removed ${member.user.tag} (id: ${member.user.id}) from the administrator whitelist.`,
+                                    }
+                                })
+                            }
                             wlConfig.addAdmin(member.user.id);
                             logger.success(
-                                `Added ${member.user.tag} (id: ${member.user.id}) to the administrators!`,
+                                `Added ${member.user.tag} (id: ${member.user.id}) to the administrator whitelist.`,
                             );
                             return message.reply({
                                 embed: {
