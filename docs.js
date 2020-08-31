@@ -2,6 +2,7 @@ const shell = require('shelljs');
 const Parser = require('markdown-parser');
 const p = require('path');
 const fs = require('fs');
+const logger = require('./index.js').logger;
 const { Collection } = require('discord.js');
 
 const docrepo = 'https://github.com/ct-js/docs.ctjs.rocks.git';
@@ -43,7 +44,7 @@ module.exports = {
                 shell.exec(`git clone ${docrepo} ctjs_docs`);
             } catch (err) {
                 // Whoops something bad happened
-                console.log(err);
+                logger.warn('There was an error retrieving the documentation from ' + docrepo);
             }
         } else {
             // Update the repo
