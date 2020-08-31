@@ -1,7 +1,7 @@
 const Embeds = require('../../embeds.js');
 const { database, createAnswer } = require('../../database.js');
 const { MessageEmbed, Message } = require('discord.js');
-const logger = require('../../index.js').logger;
+const { config, logger } = require('../../index.js');
 const msgs = require('../../messages.json');
 
 module.exports = {
