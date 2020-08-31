@@ -27,10 +27,6 @@ module.exports = {
         const linkEmbed = {
             color: 'AQUA',
             title: 'Ct.js Links & Resources',
-            image: {
-                url:
-                    'https://github.com/yonderbread/Ct.bot/raw/master/assets/splash.png',
-            },
             fields: [
                 {
                     name: 'Website',
