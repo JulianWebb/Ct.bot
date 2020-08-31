@@ -49,6 +49,30 @@ module.exports = {
                         embed: errorEmbed,
                     });
                 }
+            } if (args[0] === 'whitelist') {
+                if (args.length >= 2) {
+                    const member = message.guild.members.cache.get(args[1]);
+                    if (member) {
+                        // TODO: Add them
+                    } else {
+                        return message.reply({
+                            embed: {
+                                title: 'Error',
+                                color: 'RED',
+                                description: 'That member does not exist!'
+                            }
+                        })
+                    }
+                } else {
+                    const errorEmbed = {
+                        title: 'Error',
+                        color: 'RED',
+                        description: `You did not supply a valid member ID!`,
+                    };
+                    return message.reply({
+                        embed: errorEmbed,
+                    });
+                }
             }
         }
     },
