@@ -31,7 +31,7 @@ module.exports = {
                 const filter = (reaction, user) => { return reaction.emoji.name === '👍' && user.id === message.author.id };
                 msg.awaitReactions(filter, {max: 1, time: 60000, errors: ['time']})
                 .then(reactions => {
-                    const reaction = collected.first();
+                    const reaction = reactions.first();
 
                     if (reaction.emoji.name === '👍') {
                         message.reply('We have sent you a DM message.');
