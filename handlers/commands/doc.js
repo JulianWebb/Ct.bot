@@ -17,7 +17,7 @@ module.exports = {
             ));
             return;
         }
-        const query = args.join(' ').toLowerCase();
+        const query = args.join(' ');
         const results = [];
         for (const file in cachedDocs) {
             for (const heading of cachedDocs[file].headings) {
@@ -42,13 +42,12 @@ module.exports = {
             });
             return;
         }
-        const embed = {
-            color: 'AQUA',
-            title: 'Here is what I\'ve found:',
-            fields: results
-        }
         message.channel.send({
-            embed
+            embed: {
+                color: 'AQUA',
+                title: 'Here is what I\'ve found:',
+                fields: results
+            }
         });
     }
 };

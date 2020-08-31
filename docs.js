@@ -1,4 +1,5 @@
 const shell = require('shelljs');
+const glob = require('glob');
 const p = require('path');
 
 const fs = require('fs-extra');
@@ -42,7 +43,14 @@ module.exports = {
         // Have we already cloned the repo?
         if (!fs.existsSync(docpath)) {
             try {
-                shell.exec(`git clone ${docrepo} ctjs_docs`);
+                shell.exec(`git clone ${docrepo} ${docpath}`);
+                shell.cd(`${docpath}/docs`);
+                shell.ls('-d','.').forEach((dir) => {
+                    if (!['.vuepress','images'].includes(dir)) {
+                        shelljs.rm(dir);
+                        logger.info('Removed dir: ' + dir);
+                    }
+                })
             } catch (err) {
                 // Whoops something bad happened
                 logger.warn('There was an error retrieving the documentation from ' + docrepo);
@@ -62,8 +70,7 @@ module.exports = {
         let rawFiles = [];
         const filenames = [];
         for (const file of mdFiles) {
-
-            
+            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
             filenames.push(mdFilename);
             rawFiles.push(fs.readFile(file, 'utf-8'));
         }
