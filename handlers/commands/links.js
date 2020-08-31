@@ -9,7 +9,7 @@ module.exports = {
     admin_only: false,
     run(message, args) {
         if (args[0]) {
-            if (Object.keys(links).includes(args[0])) {
+            if (Object.keys(links).includes(args[0].split(' ')[0])) {
                 const linkEmbed = {
                     color: 'AQUA',
                     title: args[0][0].toUpperCase() + args[0].slice(1,args[0].length),
