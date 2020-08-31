@@ -31,12 +31,10 @@ module.exports = {
                     };
 
                     if (old_status != '') {
-                        newStatusEmbed.fields.push(
-                            {
-                                name: 'Old Status',
-                                value: `${old_status}`
-                            }
-                        )
+                        newStatusEmbed.fields.push({
+                            name: 'Old Status',
+                            value: `${old_status}`,
+                        });
                     }
                     return message.channel.send({
                         embed: newStatusEmbed,
