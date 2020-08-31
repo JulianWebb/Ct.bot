@@ -9,13 +9,9 @@ const token = config.token;
 
 const CommandHandler = require('./handlers/CommandHandler.js');
 
-// Initialize documentation
-docs.clone();
-
 const client = new Discord.Client();
 client.prefix = config.prefix;
 client.commands = CommandHandler.register(client);
-client.docs = docs.parse();
 
 client.on('ready', () => {
     logger.info(
