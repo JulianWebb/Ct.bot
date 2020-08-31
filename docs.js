@@ -1,8 +1,12 @@
 const shell = require('shelljs');
-const Parser = require('markdown-parser');
 const p = require('path');
-const fs = require('fs');
+
+const fs = require('fs-extra');
+const getHeadings = require('markdown-headings');
+
+
 const logger = require('./index.js').logger;
+
 const { Collection } = require('discord.js');
 
 const docrepo = 'https://github.com/ct-js/docs.ctjs.rocks.git';
@@ -13,17 +17,15 @@ shell.cd(p.join(__dirname, docpath));
 // https://stackoverflow.com/a/47492545/13825612
 const isDirectory = (path) => fs.statSync(path).isDirectory();
 const getDirectories = (path) =>
-    fs
-        .readdirSync(path)
-        .map((name) => p.join(path, name))
-        .filter(isDirectory);
+    fs.readdirSync(path)
+    .map((name) => p.join(path, name))
+    .filter(isDirectory);
 
 const isMarkdown = (path) => path.endsWith('.md');
 const getFiles = (path) =>
-    fs
-        .readdirSync(path)
-        .map((name) => p.join(path, name))
-        .filter(isMarkdown);
+    fs.readdirSync(path)
+    .map((name) => p.join(path, name))
+    .filter(isMarkdown);
 
 const getFilesRecursively = (path) => {
     let dirs = getDirectories(path);
@@ -37,7 +39,6 @@ module.exports = {
     clone() {
         // Clone repo
         shell.cd(__dirname);
-
         // Have we already cloned the repo?
         if (!fs.existsSync(docpath)) {
             try {
@@ -57,14 +58,29 @@ module.exports = {
     async parse() {
         const mdFiles = getFilesRecursively('docs');
         // Create index
-        let index = new Map();
+        let index = {};
+        let rawFiles = [];
+        const filenames = [];
         for (const file of mdFiles) {
+
+            
+            filenames.push(mdFilename);
+            rawFiles.push(fs.readFile(file, 'utf-8'));
+        }
+        rawFiles = await Promise.all(rawFiles);
+        for (let i = 0, l = rawFiles.length; i < l; i++) {
+            const headings = getHeadings(rawFiles[i]),
+                  filename = filenames[i],
+                  title = headings[0].replace(/^#+\s?/, '')
+            index[filename] = { headings, filename, title };
+
             const parser = new Parser();
 
             const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
             const raw = fs.readFileSync(file, 'utf-8');
             const md = parser.parse(raw);
             index.set(mdFilename, { content: md, filename: file });
+
         }
         return index;
     },
