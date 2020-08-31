@@ -1,8 +1,12 @@
 const Embeds = require('../../embeds.js');
-const logger = require('../../index.js').logger;
+const { logger } = require('../../index.js');
+const { config } = require('../index.js');
+
 module.exports = {
     name: 'purge',
     description: 'Clears messages',
+    usage: `${config.data.prefix}purge [amount]`,
+    admin_only: true,
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const amount = Number.parseInt(args[0]);

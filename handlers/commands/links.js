@@ -1,9 +1,12 @@
 const Embeds = require('../../embeds.js');
 const links = require('../../resources.json');
+const { config } = require('../../index.js');
 
 module.exports = {
     name: 'links',
     description: 'All ct.js related links',
+    usage: `${config.data.prefix}links`,
+    admin_only: false,
     run(message, args) {
         const linkEmbed = {
             color: 'AQUA',

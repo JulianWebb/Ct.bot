@@ -1,6 +1,7 @@
 const Embeds = require('../../embeds.js');
 const docs = require('../../docs.js');
 const slugger = require('github-slugger');
+const { config } = require('../../index.js');
 
 let cachedDocs = {};
 docs.clone();
@@ -9,6 +10,8 @@ docs.parse().then((docs) => (cachedDocs = docs));
 module.exports = {
     name: 'doc',
     description: 'View documentation topics by keyword.',
+    usage: `${config.data.prefix}doc [search terms]`,
+    admin_only: false,
     run(message, args) {
         if (!args || !args.length) {
             message.channel.send(Embeds.info('#446adb'));

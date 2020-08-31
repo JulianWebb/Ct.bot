@@ -5,6 +5,8 @@ const { Message } = require('discord.js');
 module.exports = {
     name: 'config',
     description: 'Configure this bot instance.',
+    usage: `${config.data.prefix}config [option] [value]`,
+    admin_only: true,
     run(message = new Message(), args) {
         if (
             wlConfig.data.administrators.includes(message.author.id) ||

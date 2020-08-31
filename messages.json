@@ -1,5 +1,8 @@
 {
     "commands": {
+        "help": {
+            "invalid_command": "No such command. Run {command} to view all available commands."
+        },
         "ask": {
             "no_answer": {
                 "title": "Unable to find answer",

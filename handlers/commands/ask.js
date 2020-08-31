@@ -7,6 +7,8 @@ const msgs = require('../../messages.json');
 module.exports = {
     name: 'ask',
     description: 'Checks for answers to previously asked questions',
+    usage: `${config.data.prefix}ask [question]`,
+    admin_only: false,
     run(message = new Message(), args) {
         if (!args || !args.length) {
             message.channel.send(Embeds.info('#446adb'));
