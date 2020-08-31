@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const Markdown = require('@dimerapp/markdown');
+const Parser = require('markdown-parser');
 const p = require('path');
 const fs = require('fs');
 const { Collection } = require('discord.js');
@@ -58,12 +58,13 @@ module.exports = {
         // Create index
         let index = new Map();
         for (const file of mdFiles) {
+            const parser = Parser();
+
             const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
             console.log(mdFilename);
             const raw = fs.readFileSync(file, 'utf-8');
-            const md = new Markdown(raw, {});
-            const content = await md.toJSON();
-            index.set(mdFilename, { content: content, filename: file });
+            const md = parser.parse(raw);
+            index.set(mdFilename, { content: md, filename: file });
         }
         return index;
     },
@@ -71,6 +72,6 @@ module.exports = {
         // TODO: Get documentation based off term
     },
     getTopics(docs) {
-        docs.forEach((k, v) => console.log(k, v));
+        // TODO: Get all topics and return an array
     },
 };
