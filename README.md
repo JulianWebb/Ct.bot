@@ -8,4 +8,4 @@ Documentation lookup bot for Ct.js Discord
 -   [ ] Image manipulation utilities
 -   [x] Quick links to Ct.js resources
 -   [ ] Alerts when documentation has been updated
--   [ ] Allow users to add questions with answers to help other people out
+-   [x] Allow users to add questions with answers to help other people out
