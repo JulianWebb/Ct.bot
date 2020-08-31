@@ -19,9 +19,8 @@ module.exports = {
             if (value === null) {
                 const msg = await message.channel.send(
                     new MessageEmbed()
-                        .setTitle(
-                            msgs.commands.ask.no_answer.title,
-                        ).setDescription(msgs.commands.ask.no_answer.description)
+                        .setTitle(msgs.commands.ask.no_answer.title)
+                        .setDescription(msgs.commands.ask.no_answer.description)
                         .setColor('RED')
                         .setFooter('Requested by ' + message.member.user.tag),
                 );
@@ -44,7 +43,10 @@ module.exports = {
                         if (reaction.emoji.name === '👍') {
                             message.author.createDM().then((dmChannel) => {
                                 dmChannel.send(
-                                    msgs.commands.ask.dm_message.replace('{question}',`\`${question}\``),
+                                    msgs.commands.ask.dm_message.replace(
+                                        '{question}',
+                                        `\`${question}\``,
+                                    ),
                                 );
                                 message.reply(msgs.commands.ask.sent_dm);
                                 const filter = (m) =>
@@ -84,9 +86,9 @@ module.exports = {
                         message.reply({
                             embed: {
                                 color: 'RED',
-                                title: msgs.commands.ask.timed_out.title, 
-                                description: msgs.commands.ask.timed_out.title
-                            }
+                                title: msgs.commands.ask.timed_out.title,
+                                description: msgs.commands.ask.timed_out.title,
+                            },
                         }),
                     );
             } else {
