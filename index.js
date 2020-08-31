@@ -18,22 +18,25 @@ client.commands = CommandHandler.register(client);
 client.docs = docs.parse();
 
 client.on('ready', () => {
-  logger.info(
-    `[Ct.bot v${require('./package.json').version} started at ${new Date()}]`,
-  );
-  logger.success('Online!');
+    logger.info(
+        `[Ct.bot v${
+            require('./package.json').version
+        } started at ${new Date()}]`,
+    );
+    logger.success('Online!');
 });
 
 client.on('message', (message) => {
-  // Don't allow bots to trigger commands or non-command messages
-  if (!message.content.startsWith(client.prefix) || message.author.bot) return;
+    // Don't allow bots to trigger commands or non-command messages
+    if (!message.content.startsWith(client.prefix) || message.author.bot)
+        return;
 
-  const args = message.content.slice(client.prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+    const args = message.content.slice(client.prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
 
-  if (client.commands.has(command)) {
-    client.commands.get(command).run(message, args);
-  }
+    if (client.commands.has(command)) {
+        client.commands.get(command).run(message, args);
+    }
 });
 
 client.login(token);

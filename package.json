@@ -1,25 +1,25 @@
 {
-  "name": "ctbot",
-  "version": "1.0.0",
-  "description": "Documentation lookup bot for Ct.js Discord",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "style": "prettier --write **/*.js **/*.json !ctjs_docs"
-  },
-  "keywords": [],
-  "author": "yonderbread",
-  "license": "MIT",
-  "dependencies": {
-    "@dimerapp/markdown": "^3.2.2",
-    "chalk": "^4.1.0",
-    "discord.js": "^12.3.1",
-    "log4js": "^6.3.0",
-    "md-2-json": "^1.0.6",
-    "shelljs": "^0.8.4",
-    "time-stamp": "^2.2.0"
-  },
-  "devDependencies": {
-    "prettier": "^2.1.1"
-  }
+    "name": "ctbot",
+    "version": "1.0.0",
+    "description": "Documentation lookup bot for Ct.js Discord",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "style": "prettier --write **/*.js **/*.json !ctjs_docs"
+    },
+    "keywords": [],
+    "author": "yonderbread",
+    "license": "MIT",
+    "dependencies": {
+        "@dimerapp/markdown": "^3.2.2",
+        "chalk": "^4.1.0",
+        "discord.js": "^12.3.1",
+        "log4js": "^6.3.0",
+        "md-2-json": "^1.0.6",
+        "shelljs": "^0.8.4",
+        "time-stamp": "^2.2.0"
+    },
+    "devDependencies": {
+        "prettier": "^2.1.1"
+    }
 }
