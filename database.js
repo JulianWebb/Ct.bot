@@ -1,5 +1,5 @@
 const firebase = require('firebase');
-const app = firebase.initializeApp(require('./config.json').firebase);
+const app = firebase.initializeApp(require('./index.js').config.data.firebase);
 const database = app.database().ref();
 
 module.exports = {

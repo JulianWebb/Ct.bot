@@ -1,16 +1,19 @@
 const Discord = require('discord.js');
 const logger = require('./logger.js');
 const docs = require('./docs.js');
+const config = require('./utils.js').Config;
+const wlConfig = require('./utils.js').WL_Config;
 module.exports.logger = logger;
+module.exports.config = config;
+module.exports.wlConfig = wlConfig;
 
 logger.saveToLog = true; // Change this to false if you don't want saved logs
-const config = require('./config.json');
-const token = config.token;
+const token = config.data.token;
 
 const CommandHandler = require('./handlers/CommandHandler.js');
 
 const client = new Discord.Client();
-client.prefix = config.prefix;
+client.prefix = config.data.prefix;
 client.commands = CommandHandler.register(client);
 
 client.on('ready', () => {
@@ -21,7 +24,7 @@ client.on('ready', () => {
     );
     logger.success('Online!');
     client.user.setActivity('Online!');
-    setTimeout(() => client.user.setActivity(config.status), 5000);
+    setTimeout(() => client.user.setActivity(config.data.status), 5000);
 });
 
 client.on('message', (message) => {

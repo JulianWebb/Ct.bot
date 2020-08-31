@@ -87,7 +87,8 @@ module.exports = {
                             embed: {
                                 color: 'RED',
                                 title: msgs.commands.ask.timed_out.title,
-                                description: msgs.commands.ask.timed_out.description,
+                                description:
+                                    msgs.commands.ask.timed_out.description,
                             },
                         }),
                     );
