@@ -1,0 +1,34 @@
+{
+    "commands": {
+        "ask": {
+            "no_answer": {
+                "title": "Unable to find answer",
+                "description": "Have an answer to this question? React below!"
+            },
+            "answer_found": {
+                "title": "Answer Found",
+                "description": "It seems someone has found an answer to your question! :tada:",
+                "fields": [
+                    {
+                        "name": "Question",
+                        "value": "{question}"
+                    },
+                    {
+                        "name": "Answer",
+                        "value": "{answer}"
+                    }
+                ]
+            },
+            "timed_out": {
+                "title": "Timed Out",
+                "description": "Took to long to react."
+            }
+        },
+        "config": {
+            "invalid_status": {
+                "title": "Invalid Status",
+                "description": "You did not supply a valid status."
+            }
+        }
+    }
+}
