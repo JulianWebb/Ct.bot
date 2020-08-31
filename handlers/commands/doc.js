@@ -29,9 +29,7 @@ module.exports = {
                         name: `${strippedHeading} at ${cachedDocs[file].title
                             .replace(/^#+\s?/, '')
                             .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')}`,
-                        value: `https://docs.ctjs.rocks/${file.slice(
-                            5,
-                        )}.html#${slug}`,
+                        value: `https://docs.ctjs.rocks/${file}.html#${slug}`,
                     });
                 }
             }
