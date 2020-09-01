@@ -66,16 +66,16 @@ module.exports = {
                                     // TODO: send to approval people
                                     createAnswer(
                                         question,
-                                        Array.from(collected)[0][1].content,
+                                        collected.first().content,
                                     );
                                     dmChannel.send(
                                         `The answer has been created with info:\nQuestion: ${question}\nAnswer: ${
-                                            Array.from(collected)[0][1].content
+                                            collected.first().content
                                         }`,
                                     );
                                     logger.success(
                                         `The answer has been created with info:\nQuestion: ${question}\nAnswer: ${
-                                            Array.from(collected)[0][1].content
+                                            collected.first().content
                                         }\nBy: ${message.author.tag} (id ${
                                             message.author.id
                                         })`,
