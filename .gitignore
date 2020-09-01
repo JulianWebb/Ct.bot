@@ -2,3 +2,4 @@ ctjs_docs
 node_modules
 config.json
 logs
+.vscode/

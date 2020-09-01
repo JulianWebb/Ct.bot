@@ -73,10 +73,7 @@ module.exports = {
         let rawFiles = [];
         const filenames = [];
         for (const file of mdFiles) {
-            const mdFilename = file
-                .split('\\')
-                .slice(-1)[0]
-                .slice(0, -3);
+            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
             filenames.push(mdFilename);
             rawFiles.push(fs.readFile(file, 'utf-8'));
         }
