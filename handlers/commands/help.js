@@ -4,11 +4,11 @@ module.exports = {
     name: 'help',
     description: 'Displays usage for all commands or specific ones',
     usage: `${config.data.prefix}help [command]`,
-    admin_only: false,
+    adminOnly: false,
     run(message, args) {
-        let commands = message.client.commands;
+        const commands = message.client.commands;
         if (!(args.length > 0)) {
-            let help_embed = {
+            const help_embed = {
                 color: 'BLUE',
                 title: 'Help',
                 description: `All help commands`,
@@ -24,28 +24,28 @@ module.exports = {
             commands.forEach((command) => {
                 help_embed.fields.push({
                     name: `💠 ${config.data.prefix}${command.name}`,
-                    value: '```' + command.description + '```',
+                    value: `\`\`\`${command.description}\`\`\``,
                     inline: false,
                 });
             });
             return message.channel.send({ embed: help_embed });
         }
         if (args.length > 0) {
-            let cmd = args[0].toLowerCase();
+            const cmd = args[0].toLowerCase();
             if (commands.get(cmd)) {
-                let command = commands.get(cmd);
-                let help_embed = {
+                const command = commands.get(cmd);
+                const help_embed = {
                     color: 'BLUE',
                     title: `🔹 ${command.name.toUpperCase()} 🔹`,
-                    description: '```' + command.description + '```',
+                    description: `\`\`\`${command.description}\`\`\``,
                     fields: [
                         {
                             name: 'Usage',
-                            value: '```' + command.usage + '```',
+                            value: `\`\`\`${command.usage}\`\`\``,
                         },
                         {
                             name: 'Admins only?',
-                            value: '```' + command.admin_only + '```',
+                            value: `\`\`\`${command.adminOnly}\`\`\``,
                         },
                     ],
                     timestamp: new Date(),
@@ -58,12 +58,12 @@ module.exports = {
                 };
                 return message.channel.send({ embed: help_embed });
             } else {
-                let error_embed = {
+                const error_embed = {
                     title: 'Invalid Command',
                     color: 'RED',
                     description: msgs.commands.help.invalid_command.replace(
                         '{command}',
-                        '`' + config.data.prefix + 'help`',
+                        `\`${config.data.prefix}help\``,
                     ),
                     timestamp: new Date(),
                     footer: {

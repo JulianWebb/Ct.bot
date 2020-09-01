@@ -11,7 +11,7 @@ module.exports = {
     name: 'doc',
     description: 'View documentation topics by keyword.',
     usage: `${config.data.prefix}doc [search terms]`,
-    admin_only: false,
+    adminOnly: false,
     run(message, args) {
         if (!args || !args.length) {
             message.channel.send(Embeds.info('#446adb'));
@@ -22,7 +22,7 @@ module.exports = {
         for (const file in cachedDocs) {
             for (const heading of cachedDocs[file].headings) {
                 if (heading.toLowerCase().indexOf(query) !== -1) {
-                    let strippedHeading = heading
+                    const strippedHeading = heading
                         .replace(/^#+\s?/, '')
                         .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
                     const slug = slugger.slug(

@@ -33,25 +33,25 @@ module.exports = {
     saveToLog: true,
     createdAt: CREATED_AT,
     info(message) {
-        console.log(chalk.bold.blue('[Info]') + chalk.reset(' ' + message));
-        this.writeOut('[Info] ' + message);
+        console.log(chalk.bold.blue('[Info]') + chalk.reset(` ${message}`));
+        this.writeOut(`[Info] ${message}`);
     },
     warn(message) {
-        console.log(chalk.bold.yellow('[Warn]') + chalk.reset(' ' + message));
-        this.writeOut('[Warn] ' + message);
+        console.log(chalk.bold.yellow('[Warn]') + chalk.reset(` ${message}`));
+        this.writeOut(`[Warn] ${message}`);
     },
     fail(message) {
         console.log(
-            chalk.bold.bgRed.white('[Error]') + chalk.reset.bold(' ' + message),
+            chalk.bold.bgRed.white('[Error]') + chalk.reset.bold(` ${message}`),
         );
-        this.writeOut('[Error] ' + message);
+        this.writeOut(`[Error] ${message}`);
     },
     success(message) {
         console.log(
             chalk.bold.bgGreen.white('[Success]') +
-                chalk.reset.bold(' ' + message),
+                chalk.reset.bold(` ${message}`),
         );
-        this.writeOut('[Success] ' + message);
+        this.writeOut(`[Success] ${message}`);
     },
     writeOut(data) {
         if (!this.saveToLog) return;

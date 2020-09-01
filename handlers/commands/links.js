@@ -6,7 +6,7 @@ module.exports = {
     name: 'links',
     description: 'All ct.js related links',
     usage: `${config.data.prefix}links <optional: link type>`,
-    admin_only: false,
+    adminOnly: false,
     run(message, args) {
         if (args[0]) {
             // Really just awful code, please make better - Splushy
@@ -19,7 +19,7 @@ module.exports = {
             if (Object.keys(links).includes(type)) {
                 const linkEmbed = {
                     color: 'AQUA',
-                    title: title,
+                    title,
                     fields: [
                         {
                             name: 'Link',

@@ -5,7 +5,7 @@ module.exports = {
     name: 'purge',
     description: 'Clears messages',
     usage: `${config.data.prefix}purge [amount]`,
-    admin_only: true,
+    adminOnly: true,
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const amount = Number.parseInt(args[0]);
@@ -14,7 +14,7 @@ module.exports = {
                     'RED',
                     'Error',
                     'Please supply a valid amount.',
-                    'Requested by ' + message.member.user.tag,
+                    `Requested by ${message.member.user.tag}`,
                 );
 
             message.channel.bulkDelete(amount).then((messages) => {
@@ -27,7 +27,7 @@ module.exports = {
                             'AQUA',
                             'Success',
                             `Deleted ${messages.size} messages.`,
-                            'Requested by ' + message.member.user.tag,
+                            `Requested by ${message.member.user.tag}`,
                         ),
                     )
                     .then((msg) => msg.delete({ timeout: 5000 }));

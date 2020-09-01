@@ -15,7 +15,7 @@ module.exports = {
         for (const file of commandFiles) {
             const command = require(`${commandFilesDir}/${file}`);
             commands.set(command.name, command);
-            logger.info('Registered command: ' + command.name);
+            logger.info(`Registered command: ${command.name}`);
         }
         return commands;
     },

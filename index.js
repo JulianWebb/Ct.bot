@@ -34,19 +34,25 @@ client.on('message', (message) => {
     if (!message.content.startsWith(client.prefix) || message.author.bot)
         return;
 
-    const args = message.content.slice(client.prefix.length).trim().split(/ +/);
+    const args = message.content
+        .slice(client.prefix.length)
+        .trim()
+        .split(/ +/);
     const command = args.shift().toLowerCase();
 
     if (client.commands.has(command)) {
         client.commands.get(command).run(message, args);
     } else {
-        message.reply(
-            {
-                embed: embeds.warn('Invalid Command', 
-                msgs.errors.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
-                `Requested by ${message.author.tag}`)
-            }
-        )
+        message.reply({
+            embed: embeds.warn(
+                'Invalid Command',
+                msgs.errors.invalid_command.replace(
+                    '{command}',
+                    `\`${config.data.prefix}help\``,
+                ),
+                `Requested by ${message.author.tag}`,
+            ),
+        });
     }
 });
 

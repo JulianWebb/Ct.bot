@@ -30,8 +30,8 @@ const getFiles = (path) =>
         .filter(isMarkdown);
 
 const getFilesRecursively = (path) => {
-    let dirs = getDirectories(path);
-    let files = dirs
+    const dirs = getDirectories(path);
+    const files = dirs
         .map((dir) => getFilesRecursively(dir))
         .reduce((a, b) => a.concat(b), []);
     return files.concat(getFiles(path));
@@ -49,14 +49,13 @@ module.exports = {
                 shell.ls('-d', '.').forEach((dir) => {
                     if (!['.vuepress', 'images'].includes(dir)) {
                         shelljs.rm(dir);
-                        logger.info('Removed dir: ' + dir);
+                        logger.info(`Removed dir: ${dir}`);
                     }
                 });
             } catch (err) {
                 // Whoops something bad happened
                 logger.warn(
-                    'There was an error retrieving the documentation from ' +
-                        docrepo,
+                    `There was an error retrieving the documentation from ${docrepo}`,
                 );
             }
         } else {
@@ -70,11 +69,14 @@ module.exports = {
     async parse() {
         const mdFiles = getFilesRecursively('docs');
         // Create index
-        let index = {};
+        const index = {};
         let rawFiles = [];
         const filenames = [];
         for (const file of mdFiles) {
-            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
+            const mdFilename = file
+                .split('\\')
+                .slice(-1)[0]
+                .slice(0, -3);
             filenames.push(mdFilename);
             rawFiles.push(fs.readFile(file, 'utf-8'));
         }

@@ -8,7 +8,7 @@ module.exports = {
     name: 'ask',
     description: 'Checks for answers to previously asked questions',
     usage: `${config.data.prefix}ask [question]`,
-    admin_only: false,
+    adminOnly: false,
     run(message = new Message(), args) {
         if (!args || !args.length) {
             message.channel.send(Embeds.info('#446adb'));
@@ -24,11 +24,11 @@ module.exports = {
                         .setTitle(msgs.commands.ask.no_answer.title)
                         .setDescription(msgs.commands.ask.no_answer.description)
                         .setColor('RED')
-                        .setFooter('Requested by ' + message.member.user.tag),
+                        .setFooter(`Requested by ${message.member.user.tag}`),
                 );
                 await msg.react('👍');
 
-                const filter = (reaction, user) => {
+                let filter = (reaction, user) => {
                     return (
                         reaction.emoji.name === '👍' &&
                         user.id === message.author.id
@@ -51,7 +51,7 @@ module.exports = {
                                     ),
                                 );
                                 message.reply(msgs.commands.ask.sent_dm);
-                                const filter = (m) =>
+                                filter = (m) =>
                                     m.author.id !== message.client.user.id;
                                 const collector = dmChannel.createMessageCollector(
                                     filter,
@@ -100,7 +100,7 @@ module.exports = {
                         .setTitle(`Answer:`)
                         .setColor('GREEN')
                         .setDescription(value)
-                        .setFooter('Requested by ' + message.member.user.tag),
+                        .setFooter(`Requested by ${message.member.user.tag}`),
                 );
             }
         });
