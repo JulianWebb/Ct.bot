@@ -4,9 +4,10 @@
     "description": "Documentation lookup bot for Ct.js Discord",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "style": "prettier --write **/**/*.js **/*.js **/*.json **/*.md !ctjs_docs",
-        "lint": "eslint --fix . && npm run style"
+        "start": "node ./index.js",
+        "style": "prettier --write **/**/*.js **/*.js **/*.json **/*.md !ctjs_docs !ctjs_docs/** !ctjs_docs/*",
+        "lint": "eslint --fix . && npm run style",
+        "dev": "nodemon ./index.js -e js"
     },
     "keywords": [],
     "author": "yonderbread",
@@ -25,6 +26,7 @@
     },
     "devDependencies": {
         "eslint": "^7.8.0",
+        "nodemon": "^2.0.4",
         "prettier": "^2.1.1"
     }
 }
