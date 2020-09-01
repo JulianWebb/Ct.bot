@@ -27,8 +27,8 @@ module.exports = {
                         'Success',
                         `Deleted ${messages.size} messages.`,
                         'Requested by ' + message.member.user.tag,
-                    ),
-                );
+                    )
+                ).then((msg) => msg.delete({timeout:5000}));
             });
         }
     },
