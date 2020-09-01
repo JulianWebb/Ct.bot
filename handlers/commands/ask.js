@@ -42,6 +42,7 @@ module.exports = {
                 collector.on('end', (collected) => part3(collected, dmChannel));
             });
         };
+
         const part3 = (collected, dmChannel) => {
             const answer = collected.first().content;
             dmChannel.send(
@@ -102,7 +103,6 @@ module.exports = {
                 });
         };
 
-        // Creates the
         const part4 = (reactions2, dmChannel, answer, channel) => {
             const reaction2 = reactions2.last();
 
