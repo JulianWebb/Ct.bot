@@ -1,4 +1,1 @@
-[submodule "ctson"]
-	path = ctson
-	url = https://github.com/yonderbread/ctson.git
-	branch = master
+
