@@ -68,4 +68,7 @@ module.exports = {
 
     WL_Config: new wlConfig(),
     Config: new ConfigJSON(),
+    generateConfig() {
+        fs.writeFileSync(this.CONFIG_PATH, JSON.stringify({ token: "", prefix: "ct!", status: "with ct.js" }))
+    }
 };

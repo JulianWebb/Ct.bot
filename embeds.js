@@ -10,6 +10,20 @@ module.exports = {
             .setDescription(description)
             .setFooter(footer);
     },
+    warn(title, description, footer) {
+        return new MessageEmbed()
+            .setTitle(title)
+            .setColor('YELLOW')
+            .setDescription(description)
+            .setFooter(footer);
+    },
+    error(title, description, footer) {
+        return new MessageEmbed()
+            .setTitle(title)
+            .setColor('RED')
+            .setDescription(description)
+            .setFooter(footer);
+    },
     doc(color, title, description, link) {
         return new MessageEmbed()
             .setTitle(title)

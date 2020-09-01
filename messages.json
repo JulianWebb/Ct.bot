@@ -35,5 +35,8 @@
                 "description": "You did not supply a valid status."
             }
         }
+    },
+    "errors": {
+        "invalid_command": "No such command. Run {command} to view all available commands."
     }
 }

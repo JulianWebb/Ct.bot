@@ -3,6 +3,8 @@ const logger = require('./logger.js');
 const docs = require('./docs.js');
 const config = require('./utils.js').Config;
 const wlConfig = require('./utils.js').WL_Config;
+const embeds = require('./embeds.js');
+const msgs = require('./messages.json');
 module.exports.logger = logger;
 module.exports.config = config;
 module.exports.wlConfig = wlConfig;
@@ -37,6 +39,14 @@ client.on('message', (message) => {
 
     if (client.commands.has(command)) {
         client.commands.get(command).run(message, args);
+    } else {
+        message.reply(
+            {
+                embed: embeds.warn('Invalid Command', 
+                msgs.errors.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
+                `Requested by ${message.author.tag}`)
+            }
+        )
     }
 });
 
