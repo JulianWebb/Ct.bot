@@ -21,14 +21,16 @@ module.exports = {
                 logger.success(
                     `${message.member.user.tag} successfully deleted ${messages.size} messages.`,
                 );
-                message.reply(
-                    Embeds.info(
-                        'AQUA',
-                        'Success',
-                        `Deleted ${messages.size} messages.`,
-                        'Requested by ' + message.member.user.tag,
+                message
+                    .reply(
+                        Embeds.info(
+                            'AQUA',
+                            'Success',
+                            `Deleted ${messages.size} messages.`,
+                            'Requested by ' + message.member.user.tag,
+                        ),
                     )
-                ).then((msg) => msg.delete({timeout:5000}));
+                    .then((msg) => msg.delete({ timeout: 5000 }));
             });
         }
     },
