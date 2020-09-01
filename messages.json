@@ -6,7 +6,7 @@
         "ask": {
             "no_answer": {
                 "title": "Unable to find answer",
-                "description": "Have an answer to this question? React below!"
+                "description": "Have an answer to this question? React with 👍 below!"
             },
             "answer_found": {
                 "title": "Answer Found",
@@ -26,15 +26,15 @@
                 "title": "Timed Out",
                 "description": "Took to long to react."
             },
-            "sent_dm": "Sent you a DM message.",
+            "sent_dm": "sent you a DM message.",
             "dm_message": "Please reply with your answer to the question {question} (in one message).",
             "needs_approval": {
                 "title": "Answer needs approval",
-                "description": "Answer: ```{answer}```\nQuestion: ```{question}```\nReact to approve. This message will expire in 2 hours."
+                "description": "Answer: ```{answer}```\nQuestion: ```{question}```\nReact with ✅ below to approve."
             },
             "waiting_approval": {
                 "title": "Answer waiting for approval",
-                "description": "Your answer ({answer} for question {question}) is waiting for approval."
+                "description": "Your answer (`{answer}` for question `{question}`) is waiting for approval."
             },
             "approved": {
                 "title": "Answer approved!",

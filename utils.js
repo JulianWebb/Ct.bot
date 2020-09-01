@@ -24,7 +24,10 @@ class BaseConfig {
     }
 
     save() {
-        fs.writeFileSync(this.path, JSON.stringify(this.data, null, '    '));
+        fs.writeFileSync(
+            this.path,
+            `${JSON.stringify(this.data, null, '    ')}\n`,
+        );
     }
 }
 
@@ -45,7 +48,11 @@ class wlConfig extends BaseConfig {
     }
 
     removeAdmin(id) {
-        this.data.administrators.pop(this.data.administrators.indexOf(id));
+        // https://stackoverflow.com/a/5767357
+        const index = this.data.administrators.indexOf(id);
+        if (index > -1) {
+            this.data.administrators.splice(index, 1);
+        }
         this.save();
     }
 }
@@ -65,6 +72,9 @@ class ConfigJSON extends BaseConfig {
 module.exports = {
     WL_PATH,
     CONFIG_PATH,
+
+    wlConfig,
+    ConfigJSON,
 
     WL_Config: new wlConfig(),
     Config: new ConfigJSON(),
