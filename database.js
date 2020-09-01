@@ -6,6 +6,6 @@ module.exports = {
     database,
     app,
     createAnswer(question = 'test', answer = 'test') {
-        database.child(question).set(answer);
+        database.child('questions').child(question).set(answer);
     },
 };
