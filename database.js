@@ -1,6 +1,16 @@
 const firebase = require('firebase');
 const env = process.env;
 
+console.log({
+    apiKey: env['firebase.apiKey'],
+    appId: env['firebase.appId'],
+    projectId: env['firebase.projectId'],
+    authDomain: env['firebase.authDomain'],
+    databaseURL: env['firebase.databaseURl'],
+    storageBucket: env['firebase.storageBucket'],
+    messagingSenderId: env['firebase.messagingSenderId'],
+});
+
 let firebaseConfig;
 
 try {
