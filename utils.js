@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const merge = require('deepmerge');
 const { database } = require('./database.js');
+const { checkForDuplicates } = require('natures-jsutils');
 
 const WL_PATH = path.join(__dirname, 'wl.json');
 const CONFIG_PATH = path.join(__dirname, 'config.json');
@@ -12,30 +12,30 @@ if (!fs.existsSync(WL_PATH)) {
 }
 
 if (!fs.existsSync(CONFIG_PATH)) {
-    console.log(chalk.bold.redBright('[ERROR]'), 'config.json does not exist! Please create it, with the correct info!');
+    fs.writeFileSync(
+        WL_PATH,
+        JSON.stringify({
+            prefix: 'ct!',
+            status: 'with ct.js! | ct!help',
+        }),
+    );
 }
 
-class BaseConfig {
-    constructor(path_) {
-        this.path = path_;
-        this.data = require(path_);
-        this.save();
+class wlConfig {
+    constructor() {
+        this.path = WL_PATH;
+        this.data = require('./wl.json');
+        database.child('wl').once('value', (snap) => {
+            const value = snap.val();
+            if (value === null || value === undefined) return;
+            this.data = checkForDuplicates(value);
+            this.save();
+        });
     }
 
     save() {
         fs.writeFileSync(this.path, `${JSON.stringify(this.data, null, '    ')}\n`);
-    }
-}
-
-class wlConfig extends BaseConfig {
-    constructor() {
-        try {
-            // For autocomplete
-            this.data = require('./wl.json');
-        } catch (e) {
-            const a = null;
-        }
-        super(WL_PATH);
+        database.child('wl').set(this.data);
     }
 
     addAdmin(id) {
@@ -46,25 +46,27 @@ class wlConfig extends BaseConfig {
     removeAdmin(id) {
         // https://stackoverflow.com/a/5767357
         const index = this.data.administrators.indexOf(id);
-        this.data.administrators.pop(index);
+        if (index > -1) {
+            this.data.administrators.splice(index, 1);
+        }
         this.save();
     }
 }
 
-class ConfigJSON extends BaseConfig {
+class ConfigJSON {
     constructor() {
-        try {
-            // For autocomplete
-            this.data = require('./config.json');
-        } catch (e) {
-            const a = null;
-        }
-        super(CONFIG_PATH);
-        // TODO: merge firebase config here
+        this.path = CONFIG_PATH;
+        this.data = require('./config.json');
+        database.child('config').once('value', (snap) => {
+            const value = snap.val();
+            if (value === null || value === undefined) return;
+            this.data = checkForDuplicates(value);
+            this.save();
+        });
     }
 
     save() {
-        super.save();
+        fs.writeFileSync(this.path, `${JSON.stringify(this.data, null, '    ')}\n`);
         database.child('config').set(this.data);
     }
 }
@@ -78,13 +80,4 @@ module.exports = {
 
     WLConfig: new wlConfig(),
     Config: new ConfigJSON(),
-    generateConfig() {
-        fs.writeFileSync(
-            this.CONFIG_PATH,
-            JSON.stringify({
-                prefix: 'ct!',
-                status: 'with ct.js! | ct!help',
-            }),
-        );
-    },
 };

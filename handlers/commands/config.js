@@ -57,16 +57,17 @@ module.exports = {
                         if (member) {
                             if (wlConfig.data.administrators.includes(member.id)) {
                                 wlConfig.removeAdmin(member.id);
+                                logger.success(`Removed ${member.displayName || member.username} (id: ${member.id}) from the administrator whitelist.`);
                                 return message.reply({
                                     embed: {
                                         title: 'Success!',
                                         color: 'GREEN',
-                                        description: `Removed ${member.displayName} (id: ${member.id}) from the administrator whitelist.`,
+                                        description: `Removed ${member.displayName || member.username} (id: ${member.id}) from the administrator whitelist.`,
                                     },
                                 });
                             }
                             wlConfig.addAdmin(member.id);
-                            logger.success(`Added ${member.displayName} (id: ${member.id}) to the administrator whitelist.`);
+                            logger.success(`Added ${member.displayName || member.username} (id: ${member.id}) to the administrator whitelist.`);
                             return message.reply({
                                 embed: {
                                     title: 'Success!',

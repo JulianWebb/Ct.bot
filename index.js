@@ -21,7 +21,10 @@ client.on('ready', () => {
     logger.info(`[Ct.bot v${require('./package.json').version} started at ${new Date()}]`);
     logger.success('Online!');
     client.user.setActivity('Online!');
-    setTimeout(() => client.user.setActivity(config.data.status), 5000);
+    setTimeout(() => {
+        client.user.setActivity(config.data.status);
+        client.prefix = config.data.prefix;
+    }, 5000);
 });
 
 client.on('message', (message) => {
