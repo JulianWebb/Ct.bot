@@ -22,6 +22,7 @@ module.exports = {
             const embed = args.join(' ');
             try {
                 const embedJson = JSON.parse(embed);
+                message.channel.send({embed:embedJson})
             } catch(e) {
                 return message.reply({ embed: 
                     {
@@ -31,7 +32,7 @@ module.exports = {
                     }
                 }).then((msg) => msg.delete({timeout:5000}))
             }
-            return message.channel.send({embed:embedJson})
+            
         }
     }
 }
