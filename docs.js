@@ -12,8 +12,8 @@ module.exports = {
                     index: data,
                 }).catch(reject);
             });
-        })
+        });
     },
     // Returns all markdown files' names with converted objects
-    parse() { }
+    parse() {},
 };

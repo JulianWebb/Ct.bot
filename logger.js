@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const log4js = require('log4js');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const timestamp = require('time-stamp');
 

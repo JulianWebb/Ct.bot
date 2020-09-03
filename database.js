@@ -23,7 +23,7 @@ const database = app.database().ref();
 module.exports = {
     database,
     app,
-    createAnswer(question = 'test', answer = 'test') {
+    createAnswer(question, answer) {
         database.child('questions').child(question).set(answer);
     },
 };

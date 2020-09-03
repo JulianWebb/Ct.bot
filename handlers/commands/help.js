@@ -8,7 +8,7 @@ module.exports = {
     run(message, args) {
         const commands = message.client.commands;
         if (!(args.length > 0)) {
-            const help_embed = {
+            const helpEmbed = {
                 color: 'BLUE',
                 title: 'Help',
                 description: `All help commands`,
@@ -22,19 +22,19 @@ module.exports = {
                 },
             };
             commands.forEach((command) => {
-                help_embed.fields.push({
+                helpEmbed.fields.push({
                     name: `💠 ${config.data.prefix}${command.name}`,
                     value: `\`\`\`${command.description}\`\`\``,
                     inline: false,
                 });
             });
-            return message.channel.send({ embed: help_embed });
+            return message.channel.send({ embed: helpEmbed });
         }
         if (args.length > 0) {
             const cmd = args[0].toLowerCase();
             if (commands.get(cmd)) {
                 const command = commands.get(cmd);
-                const help_embed = {
+                const helpEmbed = {
                     color: 'BLUE',
                     title: `🔹 ${command.name.toUpperCase()} 🔹`,
                     description: `\`\`\`${command.description}\`\`\``,
@@ -56,9 +56,9 @@ module.exports = {
                         }),
                     },
                 };
-                return message.channel.send({ embed: help_embed });
+                return message.channel.send({ embed: helpEmbed });
             } else {
-                const error_embed = {
+                const errorEmbed = {
                     title: 'Invalid Command',
                     color: 'RED',
                     description: msgs.commands.help.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
@@ -71,7 +71,7 @@ module.exports = {
                     },
                 };
                 return message.reply({
-                    embed: error_embed,
+                    embed: errorEmbed,
                 });
             }
         }
