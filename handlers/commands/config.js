@@ -76,7 +76,7 @@ module.exports = {
                             }
                             wlConfig.addAdmin(member.id);
                             logger.success(
-                                `Added ${message.author.tag} (id: ${member.id}) to the administrator whitelist.`,
+                                `Added ${member.displayName} (id: ${member.id}) to the administrator whitelist.`,
                             );
                             return message.reply({
                                 embed: {
