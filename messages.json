@@ -1,0 +1,54 @@
+{
+    "commands": {
+        "help": {
+            "invalid_command": "No such command. Run {command} to view all available commands."
+        },
+        "ask": {
+            "no_answer": {
+                "title": "Unable to find answer",
+                "description": "Have an answer to this question? React with 👍 below!"
+            },
+            "answer_found": {
+                "title": "Answer Found",
+                "description": "It seems someone has found an answer to your question! :tada:",
+                "fields": [
+                    {
+                        "name": "Question",
+                        "value": "{question}"
+                    },
+                    {
+                        "name": "Answer",
+                        "value": "{answer}"
+                    }
+                ]
+            },
+            "timed_out": {
+                "title": "Timed Out",
+                "description": "Took to long to react."
+            },
+            "sent_dm": "sent you a DM message.",
+            "dm_message": "Please reply with your answer to the question {question} (in one message).",
+            "needs_approval": {
+                "title": "Answer needs approval",
+                "description": "Answer: ```{answer}```\nQuestion: ```{question}```\nReact with ✅ below to approve."
+            },
+            "waiting_approval": {
+                "title": "Answer waiting for approval",
+                "description": "Your answer (`{answer}` for question `{question}`) is waiting for approval."
+            },
+            "approved": {
+                "title": "Answer approved!",
+                "description": "The answer has been created with info:\nQuestion: {question}\nAnswer: {answer}"
+            }
+        },
+        "config": {
+            "invalid_status": {
+                "title": "Invalid Status",
+                "description": "You did not supply a valid status."
+            }
+        }
+    },
+    "errors": {
+        "invalid_command": "No such command. Run {command} to view all available commands."
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "links": {
+        "website": "https://ctjs.rocks/",
+        "documentation": "https://docs.ctjs.rocks/",
+        "github": "https://github.com/ct-js/ct-js",
+        "itch": "https://comigo.itch.io/ct",
+        "discord": "https://discord.gg/CggbPkb",
+        "twitter": "https://twitter.com/ctjsrocks",
+        "patreon": "https://www.patreon.com/comigo"
+    },
+    "resources": {
+        "texturepacker": " https://yassinrais.github.io/texturepacker.github.io/",
+        "palettes": "https://comigo.itch.io/palettes",
+        "itchassets": "https://itch.io/game-assets",
+        "kenney": "https://www.kenney.nl/",
+        "randompalettes": "http://colormind.io/bootstrap/"
+    }
+}
