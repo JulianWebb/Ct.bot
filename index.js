@@ -14,7 +14,7 @@ const token = process.env.token;
 const CommandHandler = require('./handlers/CommandHandler.js');
 
 const client = new Discord.Client();
-client.prefix = process.env.prefix;
+client.prefix = config.data.prefix;
 client.commands = CommandHandler.register(client);
 
 client.on('ready', () => {

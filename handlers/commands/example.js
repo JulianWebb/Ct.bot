@@ -15,7 +15,7 @@ module.exports = {
     adminOnly: false,
     run(message, args) {
         if (!args || !args.length) {
-            return message.reply(Embeds.info('#446adb', 'Error', 'Please specify a topic.', `Requested by ${message.author.tag}`));
+            return message.reply(Embeds.info('#446adb', 'Error', 'Please specify a topic.', `Requested by ${message.member.displayName}`));
         }
 		if (args.length === 1) {
 			getRoot().then(root => JSON.parse(root)).then((root) => {

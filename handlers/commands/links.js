@@ -1,4 +1,3 @@
-const Embeds = require('../../embeds.js');
 const links = require('../../resources.json').links;
 const { config } = require('../../index.js');
 

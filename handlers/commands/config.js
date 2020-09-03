@@ -27,7 +27,7 @@ module.exports = {
                         const newStatusEmbed = {
                             title: 'Updated status',
                             color: 'AQUA',
-                            description: `${message.member.tag} updated the status.`,
+                            description: `${message.member.displayName} updated the status.`,
                             fields: [
                                 {
                                     name: 'New Status',
@@ -70,19 +70,19 @@ module.exports = {
                                     embed: {
                                         title: 'Success!',
                                         color: 'GREEN',
-                                        description: `Removed ${member.tag} (id: ${member.id}) from the administrator whitelist.`,
+                                        description: `Removed ${message.member.displayName} (id: ${member.id}) from the administrator whitelist.`,
                                     },
                                 });
                             }
                             wlConfig.addAdmin(member.id);
                             logger.success(
-                                `Added ${member.tag} (id: ${member.id}) to the administrator whitelist.`,
+                                `Added ${message.author.tag} (id: ${member.id}) to the administrator whitelist.`,
                             );
                             return message.reply({
                                 embed: {
                                     title: 'Success!',
                                     color: 'GREEN',
-                                    description: `Added ${member.tag} (id: ${member.id}) to the whitelist!`,
+                                    description: `Added ${message.member.displayName} (id: ${member.id}) to the whitelist!`,
                                 },
                             });
                         } else {

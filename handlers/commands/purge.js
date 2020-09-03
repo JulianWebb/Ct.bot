@@ -14,7 +14,7 @@ module.exports = {
                     'RED',
                     'Error',
                     'Please supply a valid amount.',
-                    `Requested by ${message.member.user.tag}`,
+                    `Requested by ${message.member.displayName}`,
                 );
 
             message.channel.bulkDelete(amount).then((messages) => {
@@ -27,7 +27,7 @@ module.exports = {
                             'AQUA',
                             'Success',
                             `Deleted ${messages.size} messages.`,
-                            `Requested by ${message.member.user.tag}`,
+                            `Requested by ${message.member.displayName}`,
                         ),
                     )
                     .then((msg) => msg.delete({ timeout: 5000 }));

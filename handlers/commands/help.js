@@ -15,7 +15,7 @@ module.exports = {
                 fields: [],
                 timestamp: new Date(),
                 footer: {
-                    text: `Requested by ${message.member.user.tag}`,
+                    text: `Requested by ${message.member.displayName}`,
                     icon_url: message.author.displayAvatarURL({
                         dynamic: true,
                     }),
@@ -50,7 +50,7 @@ module.exports = {
                     ],
                     timestamp: new Date(),
                     footer: {
-                        text: `Requested by ${message.member.user.tag}`,
+                        text: `Requested by ${message.member.displayName}`,
                         icon_url: message.author.displayAvatarURL({
                             dynamic: true,
                         }),
@@ -67,7 +67,7 @@ module.exports = {
                     ),
                     timestamp: new Date(),
                     footer: {
-                        text: `Requested by ${message.member.user.tag}`,
+                        text: `Requested by ${message.member.displayName}`,
                         icon_url: message.author.displayAvatarURL({
                             dynamic: true,
                         }),
