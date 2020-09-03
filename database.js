@@ -12,8 +12,8 @@ try {
         databaseURL: env.firebase.databaseURl,
         storageBucket: env.firebase.storageBucket,
         messagingSenderId: env.firebase.messagingSenderId,
-    }
-} catch(e) {
+    };
+} catch (e) {
     firebaseConfig = require('./credentials.json').firebase;
 }
 
@@ -24,9 +24,6 @@ module.exports = {
     database,
     app,
     createAnswer(question = 'test', answer = 'test') {
-        database
-            .child('questions')
-            .child(question)
-            .set(answer);
+        database.child('questions').child(question).set(answer);
     },
 };
