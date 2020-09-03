@@ -32,7 +32,7 @@ module.exports = {
                     }
                 }).then((msg) => msg.delete({timeout:5000}))
             }
-            
+            message.delete();
         }
     }
 }
