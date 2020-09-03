@@ -13,7 +13,7 @@ if (!fs.existsSync(WL_PATH)) {
 
 if (!fs.existsSync(CONFIG_PATH)) {
     fs.writeFileSync(
-        WL_PATH,
+        CONFIG_PATH,
         JSON.stringify({
             prefix: 'ct!',
             status: 'with ct.js! | ct!help',

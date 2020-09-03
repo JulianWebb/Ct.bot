@@ -1,5 +1,3 @@
-const firebase = require('firebase');
-
 let firebaseConfig;
 
 try {
@@ -16,6 +14,7 @@ try {
     firebaseConfig = require('./credentials.json').firebase;
 }
 
+const firebase = require('firebase');
 const app = firebase.initializeApp(firebaseConfig);
 const database = app.database().ref();
 
