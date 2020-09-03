@@ -10,6 +10,7 @@ try {
         storageBucket: process.env['firebase.storageBucket'],
         messagingSenderId: process.env['firebase.messagingSenderId'],
     };
+    if (firebaseConfig.databaseURL === undefined || firebaseConfig.databaseURL === null) firebaseConfig = require('./credentials.json').firebase;
 } catch (e) {
     firebaseConfig = require('./credentials.json').firebase;
 }
