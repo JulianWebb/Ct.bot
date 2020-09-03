@@ -1,3 +1,5 @@
+console.log(process.env);
+
 const Discord = require('discord.js');
 const logger = require('./logger.js');
 const config = require('./utils.js').Config;
@@ -6,8 +8,6 @@ const msgs = require('./messages.json');
 module.exports.logger = logger;
 module.exports.config = config;
 module.exports.wlConfig = wlConfig;
-
-console.log(process.env);
 
 logger.saveToLog = true; // Change this to false if you don't want saved logs
 const token = process.env.token || require('./credentials.json').token;
