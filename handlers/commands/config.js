@@ -70,7 +70,7 @@ module.exports = {
                                     embed: {
                                         title: 'Success!',
                                         color: 'GREEN',
-                                        description: `Removed ${message.member.displayName} (id: ${member.id}) from the administrator whitelist.`,
+                                        description: `Removed ${member.displayName} (id: ${member.id}) from the administrator whitelist.`,
                                     },
                                 });
                             }
