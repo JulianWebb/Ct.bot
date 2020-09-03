@@ -11,7 +11,7 @@ module.exports = {
             const helpEmbed = {
                 color: 'BLUE',
                 title: 'Help',
-                description: `All help commands`,
+                description: `All help commands. Run \`${config.data.prefix}help [command]\` for command usage and other info.`,
                 fields: [],
                 timestamp: new Date(),
                 footer: {
@@ -36,7 +36,7 @@ module.exports = {
                 const command = commands.get(cmd);
                 const helpEmbed = {
                     color: 'BLUE',
-                    title: `🔹 ${command.name.toUpperCase()} 🔹`,
+                    title: `🔷 ${command.name.toUpperCase()} 🔷`,
                     description: `\`\`\`${command.description}\`\`\``,
                     fields: [
                         {
