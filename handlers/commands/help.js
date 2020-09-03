@@ -61,10 +61,7 @@ module.exports = {
                 const error_embed = {
                     title: 'Invalid Command',
                     color: 'RED',
-                    description: msgs.commands.help.invalid_command.replace(
-                        '{command}',
-                        `\`${config.data.prefix}help\``,
-                    ),
+                    description: msgs.commands.help.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
                     timestamp: new Date(),
                     footer: {
                         text: `Requested by ${message.member.displayName}`,

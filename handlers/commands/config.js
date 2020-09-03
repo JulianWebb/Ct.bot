@@ -8,10 +8,7 @@ module.exports = {
     usage: `${config.data.prefix}config [option] [value]`,
     adminOnly: true,
     run(message = new Message(), args) {
-        if (
-            wlConfig.data.administrators.includes(message.author.id) ||
-            message.member.permissions.has('ADMINISTRATOR')
-        ) {
+        if (wlConfig.data.administrators.includes(message.author.id) || message.member.permissions.has('ADMINISTRATOR')) {
             if (args[0]) {
                 if (args[0] === 'status') {
                     if (args.length >= 2) {
@@ -21,9 +18,7 @@ module.exports = {
                         config.save();
 
                         message.client.user.setActivity(new_status);
-                        logger.success(
-                            `Changed the status to ${new_status} from ${old_status}`,
-                        );
+                        logger.success(`Changed the status to ${new_status} from ${old_status}`);
                         const newStatusEmbed = {
                             title: 'Updated status',
                             color: 'AQUA',
@@ -58,13 +53,9 @@ module.exports = {
                 }
                 if (args[0] === 'whitelist' || args[0] === 'wl') {
                     if (args.length >= 2) {
-                        const member =
-                            message.mentions.users.first() ||
-                            message.guild.members.cache.get(args[1]);
+                        const member = message.mentions.users.first() || message.guild.members.cache.get(args[1]);
                         if (member) {
-                            if (
-                                wlConfig.data.administrators.includes(member.id)
-                            ) {
+                            if (wlConfig.data.administrators.includes(member.id)) {
                                 wlConfig.removeAdmin(member.id);
                                 return message.reply({
                                     embed: {
@@ -75,9 +66,7 @@ module.exports = {
                                 });
                             }
                             wlConfig.addAdmin(member.id);
-                            logger.success(
-                                `Added ${member.displayName} (id: ${member.id}) to the administrator whitelist.`,
-                            );
+                            logger.success(`Added ${member.displayName} (id: ${member.id}) to the administrator whitelist.`);
                             return message.reply({
                                 embed: {
                                     title: 'Success!',
@@ -119,8 +108,7 @@ module.exports = {
                 embed: {
                     title: 'Error',
                     color: 'RED',
-                    description:
-                        'You do not have permission to use this command!',
+                    description: 'You do not have permission to use this command!',
                 },
             });
         }

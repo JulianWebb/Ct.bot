@@ -41,16 +41,11 @@ module.exports = {
         this.writeOut(`[Warn] ${message}`);
     },
     fail(message) {
-        console.log(
-            chalk.bold.bgRed.white('[Error]') + chalk.reset.bold(` ${message}`),
-        );
+        console.log(chalk.bold.bgRed.white('[Error]') + chalk.reset.bold(` ${message}`));
         this.writeOut(`[Error] ${message}`);
     },
     success(message) {
-        console.log(
-            chalk.bold.bgGreen.white('[Success]') +
-                chalk.reset.bold(` ${message}`),
-        );
+        console.log(chalk.bold.bgGreen.white('[Success]') + chalk.reset.bold(` ${message}`));
         this.writeOut(`[Success] ${message}`);
     },
     writeOut(data) {

@@ -10,8 +10,7 @@ module.exports = {
         if (args[0]) {
             // Really just awful code, please make better - Splushy
             const type = args[0].split('.')[0];
-            let title =
-                args[0][0].toUpperCase() + args[0].slice(1, args[0].length);
+            let title = args[0][0].toUpperCase() + args[0].slice(1, args[0].length);
             if (args[0] === 'itch') {
                 title = 'Itch.io';
             }

@@ -22,16 +22,10 @@ module.exports = {
         for (const file in cachedDocs) {
             for (const heading of cachedDocs[file].headings) {
                 if (heading.toLowerCase().indexOf(query) !== -1) {
-                    const strippedHeading = heading
-                        .replace(/^#+\s?/, '')
-                        .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
-                    const slug = slugger.slug(
-                        strippedHeading.replace(/\./g, '-').toLowerCase(),
-                    );
+                    const strippedHeading = heading.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
+                    const slug = slugger.slug(strippedHeading.replace(/\./g, '-').toLowerCase());
                     results.push({
-                        name: `${strippedHeading} at ${cachedDocs[file].title
-                            .replace(/^#+\s?/, '')
-                            .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')}`,
+                        name: `${strippedHeading} at ${cachedDocs[file].title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')}`,
                         value: `https://docs.ctjs.rocks/${file}.html#${slug}`,
                     });
                 }

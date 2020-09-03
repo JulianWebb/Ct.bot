@@ -29,9 +29,7 @@ const getFiles = (path) =>
 
 const getFilesRecursively = (path) => {
     const dirs = getDirectories(path);
-    const files = dirs
-        .map((dir) => getFilesRecursively(dir))
-        .reduce((a, b) => a.concat(b), []);
+    const files = dirs.map((dir) => getFilesRecursively(dir)).reduce((a, b) => a.concat(b), []);
     return files.concat(getFiles(path));
 };
 
@@ -52,9 +50,7 @@ module.exports = {
                 });
             } catch (err) {
                 // Whoops something bad happened
-                logger.warn(
-                    `There was an error retrieving the documentation from ${docrepo}`,
-                );
+                logger.warn(`There was an error retrieving the documentation from ${docrepo}`);
             }
         } else {
             // Update the repo
@@ -71,7 +67,10 @@ module.exports = {
         let rawFiles = [];
         const filenames = [];
         for (const file of mdFiles) {
-            const mdFilename = file.split('\\').slice(-1)[0].slice(0, -3);
+            const mdFilename = file
+                .split('\\')
+                .slice(-1)[0]
+                .slice(0, -3);
             filenames.push(mdFilename);
             rawFiles.push(fs.readFile(file, 'utf-8'));
         }

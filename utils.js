@@ -10,21 +10,18 @@ if (!fs.existsSync(WL_PATH)) {
 }
 
 if (!fs.existsSync(CONFIG_PATH)) {
-    console.log(
-        chalk.bold.redBright('[ERROR]'),
-        'config.json does not exist! Please create it, with the correct info!',
-    );
+    console.log(chalk.bold.redBright('[ERROR]'), 'config.json does not exist! Please create it, with the correct info!');
 }
 
 class BaseConfig {
-    constructor(path=WL_PATH) {
-        this.path = path;
-        this.data = require(path);
+    constructor(path_) {
+        this.path = path_;
+        this.data = require(path_);
         this.save();
     }
 
     save() {
-        fs.writeFileSync(this.path, JSON.stringify(this.data));
+        fs.writeFileSync(this.path, `${JSON.stringify(this.data, null, '    ')}\n`);
     }
 }
 
@@ -71,12 +68,15 @@ module.exports = {
     wlConfig,
     ConfigJSON,
 
-    WL_Config: new wlConfig(),
+    WLConfig: new wlConfig(),
     Config: new ConfigJSON(),
     generateConfig() {
         fs.writeFileSync(
             this.CONFIG_PATH,
-            JSON.stringify({ prefix: 'ct!', status: 'with ct.js' }),
+            JSON.stringify({
+                prefix: 'ct!',
+                status: 'with ct.js! | ct!help',
+            }),
         );
     },
 };

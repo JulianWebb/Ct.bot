@@ -4,15 +4,13 @@ Documentation lookup bot for Ct.js Discord
 
 ## Running
 
-You'll need to have a `config.json` file. This contains things such as the
-firebase config, token, prefix, and more.
+You'll need to have a `credentials.json` file or environment variables. This contains things such as the firebase config and prefix.
 
 First run `npm i` to install dependencies.
 
 Then run `npm run start` to start the bot.
 
-If you're developing it run `npm run dev`. This will restart the bot when
-javascript files are changed.
+If you're developing it run `npm run dev`. This will restart the bot when javascript files are changed.
 
 ## Todo
 

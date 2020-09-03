@@ -1,5 +1,6 @@
 const firebase = require('firebase');
 const env = process.env;
+// prettier-ignore
 const firebaseConfig = {
     apiKey: env.firebase.apiKey,
     appId: env.firebase.appId,
@@ -7,8 +8,8 @@ const firebaseConfig = {
     authDomain: env.firebase.authDomain,
     databaseURL: env.firebase.databaseURl,
     storageBucket: env.firebase.storageBucket,
-    messagingSenderId: env.firebase.messagingSenderId
-}
+    messagingSenderId: env.firebase.messagingSenderId,
+} || require('./credentials.json').firebase;
 
 const app = firebase.initializeApp(firebaseConfig);
 const database = app.database().ref();
@@ -17,6 +18,9 @@ module.exports = {
     database,
     app,
     createAnswer(question = 'test', answer = 'test') {
-        database.child('questions').child(question).set(answer);
+        database
+            .child('questions')
+            .child(question)
+            .set(answer);
     },
 };

@@ -9,27 +9,12 @@ module.exports = {
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR')) {
             const amount = Number.parseInt(args[0]);
-            if (!amount)
-                return Embeds.info(
-                    'RED',
-                    'Error',
-                    'Please supply a valid amount.',
-                    `Requested by ${message.member.displayName}`,
-                );
+            if (!amount) return Embeds.info('RED', 'Error', 'Please supply a valid amount.', `Requested by ${message.member.displayName}`);
 
             message.channel.bulkDelete(amount).then((messages) => {
-                logger.success(
-                    `${message.member.user.tag} successfully deleted ${messages.size} messages.`,
-                );
+                logger.success(`${message.member.user.tag} successfully deleted ${messages.size} messages.`);
                 message
-                    .reply(
-                        Embeds.info(
-                            'AQUA',
-                            'Success',
-                            `Deleted ${messages.size} messages.`,
-                            `Requested by ${message.member.displayName}`,
-                        ),
-                    )
+                    .reply(Embeds.info('AQUA', 'Success', `Deleted ${messages.size} messages.`, `Requested by ${message.member.displayName}`))
                     .then((msg) => msg.delete({ timeout: 5000 }));
             });
         }

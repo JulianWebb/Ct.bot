@@ -8,9 +8,7 @@ module.exports = {
         const commandFilesDir = path.join(__dirname, 'commands');
         const commands = new Collection();
 
-        const commandFiles = fs
-            .readdirSync(commandFilesDir)
-            .filter((file) => file.endsWith('.js'));
+        const commandFiles = fs.readdirSync(commandFilesDir).filter((file) => file.endsWith('.js'));
 
         for (const file of commandFiles) {
             const command = require(`${commandFilesDir}/${file}`);
