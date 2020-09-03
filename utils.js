@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const { database } = require('./database.js');
@@ -13,7 +13,7 @@ if (!fs.existsSync(WL_PATH)) {
 
 if (!fs.existsSync(CONFIG_PATH)) {
     fs.writeFileSync(
-        WL_PATH,
+        CONFIG_PATH,
         JSON.stringify({
             prefix: 'ct!',
             status: 'with ct.js! | ct!help',

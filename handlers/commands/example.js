@@ -1,5 +1,4 @@
-const Embeds = require('../../embeds.js');
-const { config, logger } = require('../../index.js');
+const { config } = require('../../index.js');
 const fetch = require('node-fetch');
 
 const examplesBase = 'https://raw.githubusercontent.com/yonderbread/ctjs_examples/master/';
@@ -73,7 +72,7 @@ module.exports = {
                             const subtopic = root[args[0]][args[1]];
                             getExample(args[0], `${args[1]}.js`).then((example) => {
                                 const subtopicEmbed = {
-                                    color: 0x3333cc,
+                                    color: '#009bff',
                                     title: `${args[0]} | ${args[1]}`,
                                     author: {
                                         name: 'Link to Documentation',

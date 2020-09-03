@@ -5,3 +5,5 @@ logs
 credentials.json
 .DS_Store
 .idea
+wl.json
+config.json

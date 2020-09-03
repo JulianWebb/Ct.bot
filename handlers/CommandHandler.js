@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const Collection = require('discord.js').Collection;
 const { logger } = require('../index.js');
