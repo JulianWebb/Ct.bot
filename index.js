@@ -21,17 +21,17 @@ client.on('ready', () => {
     logger.info(`[Ct.bot v${require('./package.json').version} started at ${new Date()}]`);
     logger.success('Online!');
     client.user.setActivity('Online!');
-    setTimeout(() => client.user.setActivity(config.data.status), 5000);
+    setTimeout(() => {
+        client.user.setActivity(config.data.status);
+        client.prefix = config.data.prefix;
+    }, 5000);
 });
 
 client.on('message', (message) => {
     // Don't allow bots to trigger commands or non-command messages
     if (!message.content.startsWith(client.prefix) || message.author.bot) return;
 
-    const args = message.content
-        .slice(client.prefix.length)
-        .trim()
-        .split(/ +/);
+    const args = message.content.slice(client.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
     if (client.commands.has(command)) {

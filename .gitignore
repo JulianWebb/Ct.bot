@@ -4,3 +4,5 @@ logs
 .vscode/
 credentials.json
 .DS_Store
+wl.json
+config.json
