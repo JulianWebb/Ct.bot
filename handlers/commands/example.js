@@ -15,13 +15,29 @@ module.exports = {
     adminOnly: false,
     run(message, args) {
         if (!args || !args.length) {
-            return message.reply(Embeds.info('#446adb', 'Error', 'Please specify a topic.', `Requested by ${message.member.displayName}`));
+
+			getRoot().then(root => JSON.parse(root)).then((root) => {
+				const topicsEmbed = {
+					title: 'Available Topics',
+					color: 'BLUE',
+					fields: [],
+					timestamp: new Date()
+				};
+				for (const topic of Object.keys(root)) {
+					topicsEmbed.fields.push({ name: topic, value: `\`${config.data.prefix}example ${topic}\``})
+				}
+				return message.reply(
+					{
+						embed: topicsEmbed
+					}
+				)
+			})
         }
 		if (args.length === 1) {
 			getRoot().then(root => JSON.parse(root)).then((root) => {
 				if (Object.keys(root).includes(args[0])) {
 					let listEmbed = {
-						title: `Available \`${args[0]}\` Topics`,
+						title: `Available Topics for \`${args[0]}\``,
 						color: 'BLUE',
 						fields: [],
 						timestamp: new Date()
