@@ -5,13 +5,13 @@ let firebaseConfig;
 
 try {
     firebaseConfig = {
-        apiKey: env.firebase.apiKey,
-        appId: env.firebase.appId,
-        projectId: env.firebase.projectId,
-        authDomain: env.firebase.authDomain,
-        databaseURL: env.firebase.databaseURl,
-        storageBucket: env.firebase.storageBucket,
-        messagingSenderId: env.firebase.messagingSenderId,
+        apiKey: env['firebase.apiKey'],
+        appId: env['firebase.appId'],
+        projectId: env['firebase.projectId'],
+        authDomain: env['firebase.authDomain'],
+        databaseURL: env['firebase.databaseURl'],
+        storageBucket: env['firebase.storageBucket'],
+        messagingSenderId: env['firebase.messagingSenderId'],
     };
 } catch (e) {
     firebaseConfig = require('./credentials.json').firebase;

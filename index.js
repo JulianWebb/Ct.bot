@@ -1,5 +1,3 @@
-console.log(process.env);
-
 const Discord = require('discord.js');
 const logger = require('./logger.js');
 const config = require('./utils.js').Config;
