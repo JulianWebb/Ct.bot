@@ -82,7 +82,7 @@ module.exports = {
                                 embed: {
                                     title: 'Success!',
                                     color: 'GREEN',
-                                    description: `Added ${message.member.displayName} (id: ${member.id}) to the whitelist!`,
+                                    description: `Added ${member.displayName} (id: ${member.id}) to the whitelist!`,
                                 },
                             });
                         } else {
