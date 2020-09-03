@@ -35,6 +35,7 @@ client.on('message', (message) => {
     const command = args.shift().toLowerCase();
 
     if (client.commands.has(command)) {
+        if (message.channel.type === 'dm') return message.reply('Guild-only command.');
         client.commands.get(command).run(message, args);
     } else {
         message.reply({

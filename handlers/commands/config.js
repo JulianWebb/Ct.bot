@@ -21,7 +21,7 @@ module.exports = {
                         logger.success(`Changed the status to ${new_status} from ${old_status}`);
                         const newStatusEmbed = {
                             title: 'Updated status',
-                            color: 'AQUA',
+                            color: 'BLUE',
                             description: `${message.member.displayName} updated the status.`,
                             fields: [
                                 {

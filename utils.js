@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const merge = require('deepmerge');
+const { database } = require('./database.js');
 
 const WL_PATH = path.join(__dirname, 'wl.json');
 const CONFIG_PATH = path.join(__dirname, 'config.json');
@@ -58,6 +60,12 @@ class ConfigJSON extends BaseConfig {
             const a = null;
         }
         super(CONFIG_PATH);
+        // TODO: merge firebase config here
+    }
+
+    save() {
+        super.save();
+        database.child('config').set(this.data);
     }
 }
 

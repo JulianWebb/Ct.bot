@@ -61,7 +61,7 @@ module.exports = {
     },
     // Returns all markdown files' names with converted objects
     async parse() {
-        const mdFiles = getFilesRecursively('docs');
+        const mdFiles = getFilesRecursively(p.join(__dirname, docpath));
         // Create index
         const index = {};
         let rawFiles = [];
