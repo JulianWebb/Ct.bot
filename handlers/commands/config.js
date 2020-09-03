@@ -98,7 +98,7 @@ module.exports = {
                         const errorEmbed = {
                             title: 'Error',
                             color: 'RED',
-                            description: `You did not supply a valid member ID!`,
+                            description: `You did not supply a valid member ID or mention!`,
                         };
                         return message.reply({
                             embed: errorEmbed,

@@ -17,17 +17,14 @@ if (!fs.existsSync(CONFIG_PATH)) {
 }
 
 class BaseConfig {
-    constructor(path) {
+    constructor(path=WL_PATH) {
         this.path = path;
         this.data = require(path);
         this.save();
     }
 
     save() {
-        fs.writeFileSync(
-            this.path,
-            `${JSON.stringify(this.data, null, '    ')}\n`,
-        );
+        fs.writeFileSync(this.path, JSON.stringify(this.data));
     }
 }
 
@@ -50,9 +47,7 @@ class wlConfig extends BaseConfig {
     removeAdmin(id) {
         // https://stackoverflow.com/a/5767357
         const index = this.data.administrators.indexOf(id);
-        if (index > -1) {
-            this.data.administrators.splice(index, 1);
-        }
+        this.data.administrators.pop(index);
         this.save();
     }
 }
@@ -81,7 +76,7 @@ module.exports = {
     generateConfig() {
         fs.writeFileSync(
             this.CONFIG_PATH,
-            JSON.stringify({ token: '', prefix: 'ct!', status: 'with ct.js' }),
+            JSON.stringify({ prefix: 'ct!', status: 'with ct.js' }),
         );
     },
 };
