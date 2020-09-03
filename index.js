@@ -7,6 +7,8 @@ module.exports.logger = logger;
 module.exports.config = config;
 module.exports.wlConfig = wlConfig;
 
+console.log(process.env);
+
 logger.saveToLog = true; // Change this to false if you don't want saved logs
 const token = process.env.token || require('./credentials.json').token;
 
