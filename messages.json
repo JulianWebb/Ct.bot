@@ -49,6 +49,7 @@
         }
     },
     "errors": {
-        "invalid_command": "No such command. Run {command} to view all available commands."
+        "invalid_command": "No such command. Run {command} to view all available commands.",
+        "no_permissions": "You do not have permission to run this command."
     }
 }
