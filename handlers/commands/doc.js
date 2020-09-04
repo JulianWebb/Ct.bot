@@ -1,3 +1,4 @@
+const { parse } = require('../../docs.js');
 const docs = require('../../docs.js');
 const { config } = require('../../index.js');
 
@@ -8,7 +9,12 @@ module.exports = {
     adminOnly: false,
     run(message, args) {
         docs.parse().then((parsedDocs) => {
-            parsedDocs.forEach((doc) => message.reply(doc.contents));
+            
+            parsedDocs.forEach((doc) => {
+                console.log(
+                    JSON.stringify(doc.contents.children[1])
+                )
+            });
         })
     },
 };

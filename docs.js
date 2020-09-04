@@ -18,8 +18,8 @@ module.exports = {
           .map(page =>
             fetch(page.download_url)
             .then(data => data.text())
-            .then(text => new Markdown(text).toJSON())
-          );
+            .then(text => new Markdown(text))
+            .then(md => md.toJSON() ));
         return Promise.all(promises);
       }
 };
