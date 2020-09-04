@@ -1,4 +1,4 @@
-const { logger, config } = require('../../index.js');
+const { logger, config, wlConfig } = require('../../index.js');
 
 module.exports = {
     name: 'purge',
@@ -6,7 +6,7 @@ module.exports = {
     usage: `${config.data.prefix}purge [amount]`,
     adminOnly: true,
     run(message, args) {
-        if (message.member.permissions.has('ADMINISTRATOR')) {
+        if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
             const amount = Number.parseInt(args[0]);
             if (!amount)
                 return {
@@ -18,7 +18,7 @@ module.exports = {
                     },
                 };
 
-            message.channel.bulkDelete(amount).then((messages) => {
+            message.channel.bulkDelete(Math.abs(amount)).then((messages) => {
                 logger.success(`${message.member.user.tag} successfully deleted ${messages.size} messages.`);
                 message
                     .reply({
