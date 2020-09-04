@@ -7,16 +7,8 @@ module.exports = {
     usage: `${config.data.prefix}doc [search terms]`,
     adminOnly: false,
     run(message, args) {
-        docs.getDocs().then((docs) => {
-            Promise.all(docs).then((data) => {
-                data.forEach(docObject => {
-                    docObject.then((doc) => {
-                        if (doc.type === 'file' && doc.name.endsWith('.md')) {
-                            message.channel.send(doc.download_url)
-                        }
-                    })
-                })
-            })
+        docs.parse().then((parsedDocs) => {
+            parsedDocs.forEach((doc) => message.reply(doc.contents));
         })
     },
 };
