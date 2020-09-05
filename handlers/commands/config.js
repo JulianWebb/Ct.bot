@@ -65,7 +65,7 @@ const configOptions = {
                     embed: {
                         title: 'Success!',
                         color: 'GREEN',
-                        description: `Added ${member.displayName} (id: ${member.id}) to the whitelist!`,
+                        description: `Added ${member.displayName || member.username} (id: ${member.id}) to the whitelist!`,
                     },
                 });
             } else {
