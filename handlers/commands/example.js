@@ -1,98 +1,71 @@
-const { config } = require('../../index.js');
-const fetch = require('node-fetch');
+const {getAllExamples} = require('../../docs.js');
 
-const examplesBase = 'https://raw.githubusercontent.com/yonderbread/ctjs_examples/master/';
-const examplesRoot = `${examplesBase}/root.json`;
+const cleanTitle = title =>
+    title
+        .replace(/^#+\s?/, '')
+        .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
 
-const getRoot = () => fetch(examplesRoot).then((res) => res['text']());
-const getExample = (category, filename) => fetch(`${examplesBase}examples/${category}/${filename}`).then((res) => res['text']());
+const imagePattern = /!\[(?<title>[^\r\n]*?)\]\((?<link>[\s\S]+?)\)/g
 
 module.exports = {
     name: 'example',
-    description: 'View Ct.js examples by keyword.',
-    usage: `${config.data.prefix}example [category] <topic>`,
-    adminOnly: false,
-    run(message, args) {
+    description: 'View examples by keyword.',
+    run: async function(message, args) {
+        const examples = await getAllExamples();
         if (!args || !args.length) {
-            getRoot()
-                .then((root) => JSON.parse(root))
-                .then((root) => {
-                    const topicsEmbed = {
-                        title: 'Available Topics',
-                        color: 'BLUE',
-                        fields: [],
-                        timestamp: new Date(),
-                    };
-                    for (const topic of Object.keys(root)) {
-                        topicsEmbed.fields.push({
-                            name: topic,
-                            value: `\`${config.data.prefix}example ${topic}\``,
-                        });
-                    }
-                    return message.reply({
-                        embed: topicsEmbed,
-                    });
-                });
+            message.channel.send({
+                embed: {
+                    color: 'AQUA',
+                    title: `We have ${examples.length} examples in total`,
+                    description: 'Add a keyword after the command to filter them',
+                    footer: 'Example: `ct!example module`'
+                }
+            });
+            return;
         }
-        if (args.length === 1) {
-            getRoot()
-                .then((root) => JSON.parse(root))
-                .then((root) => {
-                    if (Object.keys(root).includes(args[0])) {
-                        const listEmbed = {
-                            title: `Available Topics for \`${args[0]}\``,
-                            color: 'BLUE',
-                            fields: [],
-                            timestamp: new Date(),
-                        };
-                        for (const topic of Object.keys(root[args[0]])) {
-                            listEmbed.fields.push({
-                                name: topic,
-                                value: root[args[0]][topic]['description'],
-                            });
-                        }
-                        listEmbed.footer = `View a topic with ${config.data.prefix}doc ${args[0]} <topic>`;
-                        return message.reply({ embed: listEmbed });
-                    } else {
-                        return message.reply({
-                            embed: {
-                                title: 'Nothing Found',
-                                description: 'There were no example topics that matched your search.',
-                                color: 'YELLOW',
-                            },
-                        });
-                    }
+        const query = args.join(' ').toLowerCase();
+        const results = [];
+        for (const example of examples) {
+            if (example.title.toLowerCase().indexOf(query) !== -1 ||
+                example.definition.toLowerCase().indexOf(query) !== -1 ||
+                example.pageTitle.toLowerCase().indexOf(query) !== -1
+            ) {
+                const noImagesLines = example.lines.replace(imagePattern, '(See image below, $1)');
+                results.push({
+                    name: `${cleanTitle(example.title)} at ${cleanTitle(example.pageTitle)} -> ${cleanTitle(example.definition)}`,
+                    value: noImagesLines,
+                    sourceLines: example.lines,
+                    url: `${example.url}#${example.hash}`,
                 });
-        } else if (args.length >= 2) {
-            getRoot()
-                .then((root) => JSON.parse(root))
-                .then((root) => {
-                    if (Object.keys(root).includes(args[0])) {
-                        if (Object.keys(root[args[0]]).includes(args[1])) {
-                            const subtopic = root[args[0]][args[1]];
-                            getExample(args[0], `${args[1]}.js`).then((example) => {
-                                const subtopicEmbed = {
-                                    color: '#009bff',
-                                    title: `${args[0]} | ${args[1]}`,
-                                    author: {
-                                        name: 'Link to Documentation',
-                                        url: subtopic.link,
-                                    },
-                                    description: `\`\`\`js\n${example}\`\`\``,
-                                };
-                                message.reply({ embed: subtopicEmbed });
-                            });
-                        }
-                    } else {
-                        return message.reply({
-                            embed: {
-                                title: 'Nothing Found',
-                                description: 'There were no example subtopics that matched your search.',
-                                color: 'YELLOW',
-                            },
-                        });
-                    }
-                });
+            }
         }
-    },
+        if (!results.length) {
+            message.channel.send({
+                embed: {
+                    color: 'RED',
+                    title: 'Nothing found :c'
+                }
+            });
+            return;
+        }
+        for (const result of results) {
+            const images = result.sourceLines.matchAll(imagePattern);
+            message.channel.send({
+                content: `**${result.name}** (from ${result.url})\n\n${result.value}`
+            });
+
+            if (images) for (const image of images) {
+                const embed = {
+                    color: 'AQUA',
+                    title: image.groups.title || 'Attached image',
+                    image: {
+                        url: `https://raw.githubusercontent.com/ct-js/docs.ctjs.rocks/master/docs/${image.groups.link.slice(2)}`
+                    }
+                };
+                message.channel.send({
+                    embed
+                });
+            }
+        }
+    }
 };
