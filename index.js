@@ -51,7 +51,7 @@ client.on('message', (message) => {
                 title: 'Invalid Command',
                 description: msgs.errors.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
                 footer: { text: `Requested by ${message.member.displayName || message.member.user.username}` },
-                color: 'YELLOW',
+                color: 'RED',
             },
         });
     }
