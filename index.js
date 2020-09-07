@@ -50,7 +50,7 @@ client.on('message', (message) => {
         message.reply({
             embed: {
                 title: 'Invalid Command',
-                description: msg.get('errors.invalid_command', { command : `\`${config.data.prefix}help\``}),
+                description: msg.get('errors.invalid_command', { command: `\`${config.data.prefix}help\`` }),
                 footer: { text: `Requested by ${message.member.displayName || message.member.user.username}` },
                 color: 'YELLOW',
             },

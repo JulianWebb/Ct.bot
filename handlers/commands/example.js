@@ -1,4 +1,5 @@
 const { getAllExamples } = require('../../docs.js');
+require('natures-jsutils');
 
 const cleanTitle = (title) => title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
 
@@ -14,12 +15,35 @@ module.exports = {
                 embed: {
                     color: 'AQUA',
                     title: `We have ${examples.length} examples in total`,
-                    description: 'Add a keyword after the command to filter them',
-                    footer: 'Example: `ct!example module`',
+                    description: 'Add a keyword after the command to filter them, or run `${message.client.prefix}example list` to list them.',
+                    footer: 'Example: `${message.client.prefix}example module`',
                 },
             });
             return;
         }
+
+        const listReturnValue = await (async function () {
+            if (args[0] === 'list') {
+                const exampleTitles = [];
+                for (const example of examples) {
+                    exampleTitles.push({
+                        name: example.definition,
+                        value: `${example.lines.substring(0, 45).replaceAll('*', '')}...\n\nRun \`${
+                            message.client.prefix
+                        }example ${example.definition.substring(0, 15).toLowerCase()}\` to get the full example.`,
+                    });
+                }
+                return message.channel.send({
+                    embed: {
+                        color: 'AQUA',
+                        title: 'Examples:',
+                        fields: exampleTitles,
+                    },
+                });
+            }
+        })();
+        if (listReturnValue) return listReturnValue;
+
         const query = args.join(' ').toLowerCase();
         const results = [];
         for (const example of examples) {
@@ -30,7 +54,7 @@ module.exports = {
             ) {
                 const noImagesLines = example.lines.replace(imagePattern, '(See image below, $1)');
                 results.push({
-                    name: `${cleanTitle(example.title)} at ${cleanTitle(example.pageTitle)} -> ${cleanTitle(example.definition)}`,
+                    name: `${cleanTitle(example.definition)}`,
                     value: noImagesLines,
                     sourceLines: example.lines,
                     url: `${example.url}#${example.hash}`,
