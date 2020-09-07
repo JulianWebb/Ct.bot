@@ -1,4 +1,5 @@
 {
+    "log" : "[{id}] {msg}",
     "commands": {
         "help": {
             "invalid_command": "No such command. Run {command} to view all available commands."
