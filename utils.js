@@ -3,6 +3,7 @@ const path = require('path');
 const chalk = require('chalk');
 const { database } = require('./database.js');
 const { checkForDuplicates } = require('natures-jsutils');
+const { logger, args } = require('./index.js');
 
 const WL_PATH = path.join(__dirname, 'wl.json');
 const CONFIG_PATH = path.join(__dirname, 'config.json');
@@ -81,3 +82,5 @@ module.exports = {
     WLConfig: new wlConfig(),
     Config: new ConfigJSON(),
 };
+
+logger.info(`\nConfig: \`${JSON.stringify(module.exports.Config.data, null, '    ')}\`\nArguments: \`${JSON.stringify(args, null, '    ')}\`\n`);

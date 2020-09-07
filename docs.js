@@ -1,41 +1,42 @@
 /**
  * Clones docs' repo, gets files, scans for examples and headings.
+ *
  * @module
  */
 
 /**
  * @typedef IMdFile
- * @property {string} filename The filename of the document in file system
- * @property {string} url The url of the document on docs.ctjs.rocks
- * @property {string} title The title of the document
- * @property {string} raw The contents of the document
+ * @property {string} filename The filename of the document in file system.
+ * @property {string} url The url of the document on docs.ctjs.rocks.
+ * @property {string} title The title of the document.
+ * @property {string} raw The contents of the document.
  */
 
 /**
  * @typedef IExample
- * @property {string} definition The definition described in the example
- * @property {string} title The title of the example
- * @property {string} pageTitle The page title
- * @property {string} lines The content of the example
- * @property {string} url The url to the page with the example
- * @property {string} hash TODO:The hash to the example
+ * @property {string} definition The definition described in the example.
+ * @property {string} title The title of the example.
+ * @property {string} pageTitle The page title.
+ * @property {string} lines The content of the example.
+ * @property {string} url The url to the page with the example.
+ * @property {string} hash TODO:The hash to the example.
  */
 
 /**
  * @typedef IHeadings
  * @property {Array<unknown>} headings
- * @property {string} url The url of the document
- * @property {string} title The title of the document
+ * @property {string} url The url of the document.
+ * @property {string} title The title of the document.
  */
 
 const p = require('path'),
-      fs = require('fs-extra');
+    fs = require('fs-extra');
 
 const logger = require('./logger.js');
 
 const git = require('git-pull-or-clone'),
-      getHeadings = require('markdown-headings'),
-      slugger = require('github-slugger');
+    getHeadings = require('markdown-headings'),
+    slugger = require('github-slugger');
 
 const { Collection } = require('discord.js');
 
@@ -44,18 +45,17 @@ const docpath = 'ctjs_docs';
 
 let gitRepoPromise;
 // Here cached results are stored
-let allPagesPromise,
-    allExamplesPromise,
-    allHeadingsPromise;
-const pullRepo = () => new Promise((resolve, reject) => {
-    git(docrepo, docpath, err => {
-        if (err) {
-            reject(err);
-        } else {
-            resolve(docpath);
-        }
+let allPagesPromise, allExamplesPromise, allHeadingsPromise;
+const pullRepo = () =>
+    new Promise((resolve, reject) => {
+        git(docrepo, docpath, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(docpath);
+            }
+        });
     });
-});
 /**
  * @async
  */
@@ -71,51 +71,70 @@ const updateDocs = async function updateDocs() {
 updateDocs();
 setInterval(updateDocs, 1000 * 60 * 30); // 30 minutes
 
-/** @returns {string} */
-const toDocUrl = subpath => `https://docs.ctjs.rocks/${subpath.replace('ctjs_docs/docs/', '').replace(/\.md$/, '.html')}`;
-const toDocSlug = title => slugger
-    .slug(title
-        .replace(/^#+\s?/, '')
-        .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')
-        .replace(/\./g, '-')
-        .replace(/[()]/g, ' ')
-        .trim()
-        .toLowerCase()
+/**
+ * @param subpath
+ * @returns {string}
+ */
+const toDocUrl = (subpath) => `https://docs.ctjs.rocks/${subpath.replace('ctjs_docs/docs/', '').replace(/\.md$/, '.html')}`;
+const toDocSlug = (title) =>
+    slugger.slug(
+        title
+            .replace(/^#+\s?/, '')
+            .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')
+            .replace(/\./g, '-')
+            .replace(/[()]/g, ' ')
+            .trim()
+            .toLowerCase(),
     );
 
 // https://stackoverflow.com/a/47492545/13825612
 
-/** @returns {boolean} */
-const isDirectory = path => fs.statSync(path).isDirectory();
+/**
+ * @param path
+ * @returns {boolean}
+ */
+const isDirectory = (path) => fs.statSync(path).isDirectory();
 
-/** @returns {boolean} */
-const isMarkdown = path => path.endsWith('.md');
+/**
+ * @param path
+ * @returns {boolean}
+ */
+const isMarkdown = (path) => path.endsWith('.md');
 
-/** @returns {Array<string>} */
-const getDirectories = path =>
-    fs.readdirSync(path)
-    .map((name) => p.join(path, name))
-    .filter(isDirectory);
+/**
+ * @param path
+ * @returns {Array<string>}
+ */
+const getDirectories = (path) =>
+    fs
+        .readdirSync(path)
+        .map((name) => p.join(path, name))
+        .filter(isDirectory);
 
-/** @returns {Array<string>} */
-const getFiles = path =>
-    fs.readdirSync(path)
-    .map((name) => p.join(path, name))
-    .filter(isMarkdown);
+/**
+ * @param path
+ * @returns {Array<string>}
+ */
+const getFiles = (path) =>
+    fs
+        .readdirSync(path)
+        .map((name) => p.join(path, name))
+        .filter(isMarkdown);
 
-/** @returns {Array<string>} */
-const getFilesRecursively = path => {
-    let dirs = getDirectories(path);
-    let files = dirs
-        .map(dir => getFilesRecursively(dir))
-        .reduce((a, b) => a.concat(b), []);
+/**
+ * @param path
+ * @returns {Array<string>}
+ */
+const getFilesRecursively = (path) => {
+    const dirs = getDirectories(path);
+    const files = dirs.map((dir) => getFilesRecursively(dir)).reduce((a, b) => a.concat(b), []);
     return files.concat(getFiles(path));
 };
 
 const examplesPatterns = {
     heading: /^(?<level>#+) (?<title>[^\r\n]+)/, // Matches headings. Captures the #### (level) and the title after that
     code: /^```(?:\w+)?$/, // Matches fenced code start/end with optional language
-    exampleStrip: /^Example: /
+    exampleStrip: /^Example: /,
 };
 
 /**
@@ -129,12 +148,12 @@ const examplesPatterns = {
  * ## Not an example, not captured
  * ## Example: An optional title
  * (more content)
- * ```
+ * ```.
  *
  * Heading levels may vary.
  *
- * @param {IMdFile} file The MD file to parse
- * @return {Array<IExample>} All the examples in this file.
+ * @param {IMdFile} file - The MD file to parse.
+ * @returns {Array<IExample>} All the examples in this file.
  */
 const getAllExamplesFromFile = function getAllExamplesFromFile(file) {
     const lines = file.raw.split(/\r?\n/);
@@ -145,15 +164,13 @@ const getAllExamplesFromFile = function getAllExamplesFromFile(file) {
         exampleHeading: false,
         exampleHeadingLevel: 0,
         pushing: false,
-        currentResult: false
+        currentResult: false,
     };
     const pushResult = function () {
         results.push(state.currentResult);
-        state.currentResult.lines = state.currentResult.lines
-            .slice(1).join('\n')
-            .trim();
+        state.currentResult.lines = state.currentResult.lines.slice(1).join('\n').trim();
         state.currentResult = false;
-    }
+    };
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         if (examplesPatterns.code.test(line)) {
@@ -184,13 +201,13 @@ const getAllExamplesFromFile = function getAllExamplesFromFile(file) {
                         url: file.url,
                         pageTitle: file.title,
                         lines: [],
-                    }
+                    };
                     state.pushing = true;
                 }
             }
         }
         if (state.pushing) {
-          state.currentResult.lines.push(line);
+            state.currentResult.lines.push(line);
         }
     }
     if (state.currentResult) {
@@ -203,7 +220,7 @@ const firstLine = /^[^\n\r]*/;
  * @returns {Promise<Array<IMdFile>>}
  */
 const getAllPages = async function getAllPages() {
-    logger.info('Getting all the pages in the doc repo…')
+    logger.info('Getting all the pages in the doc repo…');
     await gitRepoPromise;
     const mdFiles = getFilesRecursively(p.join(docpath, 'docs'));
     const filenames = [];
@@ -217,7 +234,7 @@ const getAllPages = async function getAllPages() {
         filename,
         url: toDocUrl(filename),
         title: firstLine.exec(rawFiles[index])[0], // must be faster than splitting the file into lines
-        raw: rawFiles[index]
+        raw: rawFiles[index],
     }));
     logger.success('Got all the pages 👌');
     return pages;
@@ -246,7 +263,7 @@ const getAllHeadings = async function getAllHeadings() {
         index[file.filename] = {
             headings,
             url: file.url,
-            title: file.title
+            title: file.title,
         };
     }
     logger.success('Updated the doc index 👌');
@@ -258,23 +275,23 @@ const getAllHeadings = async function getAllHeadings() {
  */
 function lazilyGetAllPages() {
     return allPagesPromise || (allPagesPromise = getAllPages());
-};
+}
 /**
  * @returns {Promise<Array<IExample>>}
  */
 function lazilyGetAllExamples() {
     return allExamplesPromise || (allExamplesPromise = getAllExamples());
-};
+}
 /**
  * @returns {Promise<object<string,IHeadings>>}
  */
 function lazilyGetAllHeadings() {
     return allHeadingsPromise || (allHeadingsPromise = getAllHeadings());
-};
+}
 
 module.exports = {
     // Either return the existing promise (usually with resolved data), or return a newly created one
     getAllPages: lazilyGetAllPages,
     getAllExamples: lazilyGetAllExamples,
-    getAllHeadings: lazilyGetAllHeadings
+    getAllHeadings: lazilyGetAllHeadings,
 };

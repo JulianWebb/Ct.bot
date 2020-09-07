@@ -7,7 +7,7 @@
         "start": "node ./index.js",
         "style": "prettier --write !ctjs_docs/ *.js **/*.js **/**/*.js **/*.json **/*.md",
         "lint": "eslint --fix . && npm run style",
-        "dev": "nodemon ./index.js -e js"
+        "dev": "nodemon ./index.js -e js --"
     },
     "keywords": [],
     "author": "yonderbread",

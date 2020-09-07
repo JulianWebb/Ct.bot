@@ -1,16 +1,13 @@
-const {getAllExamples} = require('../../docs.js');
+const { getAllExamples } = require('../../docs.js');
 
-const cleanTitle = title =>
-    title
-        .replace(/^#+\s?/, '')
-        .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
+const cleanTitle = (title) => title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
 
-const imagePattern = /!\[(?<title>[^\r\n]*?)\]\((?<link>[\s\S]+?)\)/g
+const imagePattern = /!\[(?<title>[^\r\n]*?)\]\((?<link>[\s\S]+?)\)/g;
 
 module.exports = {
     name: 'example',
     description: 'View examples by keyword.',
-    run: async function(message, args) {
+    async run(message, args) {
         const examples = await getAllExamples();
         if (!args || !args.length) {
             message.channel.send({
@@ -18,15 +15,16 @@ module.exports = {
                     color: 'AQUA',
                     title: `We have ${examples.length} examples in total`,
                     description: 'Add a keyword after the command to filter them',
-                    footer: 'Example: `ct!example module`'
-                }
+                    footer: 'Example: `ct!example module`',
+                },
             });
             return;
         }
         const query = args.join(' ').toLowerCase();
         const results = [];
         for (const example of examples) {
-            if (example.title.toLowerCase().indexOf(query) !== -1 ||
+            if (
+                example.title.toLowerCase().indexOf(query) !== -1 ||
                 example.definition.toLowerCase().indexOf(query) !== -1 ||
                 example.pageTitle.toLowerCase().indexOf(query) !== -1
             ) {
@@ -43,29 +41,30 @@ module.exports = {
             message.channel.send({
                 embed: {
                     color: 'RED',
-                    title: 'Nothing found :c'
-                }
+                    title: 'Nothing found :c',
+                },
             });
             return;
         }
         for (const result of results) {
             const images = result.sourceLines.matchAll(imagePattern);
             message.channel.send({
-                content: `**${result.name}** (from ${result.url})\n\n${result.value}`
+                content: `**${result.name}** (from ${result.url})\n\n${result.value}`,
             });
 
-            if (images) for (const image of images) {
-                const embed = {
-                    color: 'AQUA',
-                    title: image.groups.title || 'Attached image',
-                    image: {
-                        url: `https://raw.githubusercontent.com/ct-js/docs.ctjs.rocks/master/docs/${image.groups.link.slice(2)}`
-                    }
-                };
-                message.channel.send({
-                    embed
-                });
-            }
+            if (images)
+                for (const image of images) {
+                    const embed = {
+                        color: 'AQUA',
+                        title: image.groups.title || 'Attached image',
+                        image: {
+                            url: `https://raw.githubusercontent.com/ct-js/docs.ctjs.rocks/master/docs/${image.groups.link.slice(2)}`,
+                        },
+                    };
+                    message.channel.send({
+                        embed,
+                    });
+                }
         }
-    }
+    },
 };

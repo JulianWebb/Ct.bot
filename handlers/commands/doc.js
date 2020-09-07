@@ -1,26 +1,17 @@
-const {getAllHeadings} = require('../../docs.js');
+const { getAllHeadings } = require('../../docs.js');
 
 const slugger = require('github-slugger');
 
-const cleanTitle = title =>
-    title
-        .replace(/^#+\s?/, '')
-        .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
-const toDocSlug = title => slugger
-    .slug(cleanTitle(title)
-        .replace(/\./g, '-')
-        .replace(/[()]/g, ' ')
-        .trim()
-        .toLowerCase()
-    );
+const cleanTitle = (title) => title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
+const toDocSlug = (title) => slugger.slug(cleanTitle(title).replace(/\./g, '-').replace(/[()]/g, ' ').trim().toLowerCase());
 
 module.exports = {
     name: 'doc',
     description: 'View documentation topics by keyword.',
-    run: async function(message, args) {
+    async run(message, args) {
         if (!args || !args.length) {
             message.channel.send({
-                content: 'Oh no'
+                content: 'Oh no',
             });
             return;
         }
@@ -32,7 +23,7 @@ module.exports = {
                 if (heading.toLowerCase().indexOf(query) !== -1) {
                     results.push({
                         name: `${cleanTitle(heading)} at ${cleanTitle(index[file].title)}`,
-                        value: `${index[file].url}#${toDocSlug(heading)}`
+                        value: `${index[file].url}#${toDocSlug(heading)}`,
                     });
                 }
             }
@@ -41,18 +32,18 @@ module.exports = {
             message.channel.send({
                 embed: {
                     color: 'RED',
-                    title: 'Nothing found :c'
-                }
+                    title: 'Nothing found :c',
+                },
             });
             return;
         }
         const embed = {
             color: 'AQUA',
-            title: 'Here is what I\'ve found:',
-            fields: results
-        }
+            title: "Here is what I've found:",
+            fields: results,
+        };
         message.channel.send({
-            embed
+            embed,
         });
-    }
+    },
 };
