@@ -58,5 +58,4 @@ client.on('message', (message) => {
     }
 });
 
-console.log('TOKEN: ' + token)
 client.login(token);
