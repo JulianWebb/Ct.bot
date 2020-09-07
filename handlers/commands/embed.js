@@ -1,6 +1,6 @@
 const config = require('../../index.js').config;
 const whitelist = require('../../index.js').wlConfig;
-const messages = require('../../messages.json');
+const msg = require('../../messageHandler.js');
 const parser = require('yargs-parser');
 const { Message } = require('discord.js');
 
@@ -9,7 +9,7 @@ const announcement = (message = new Message(), args_) => {
         return message.reply({
             embed: {
                 title: 'No Permissions',
-                description: messages.errors.no_permissions,
+                description: msg.get('errors.no_permissions'),
                 color: 'RED',
             },
         });
@@ -45,7 +45,7 @@ module.exports = {
             return message.reply({
                 embed: {
                     title: 'No Permissions',
-                    description: messages.errors.no_permissions,
+                    description: msg.get('errors.no_permissions'),
                     color: 'RED',
                 },
             });
