@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const logger = require('./logger.js');
 const config = require('./utils.js').Config;
 const wlConfig = require('./utils.js').WLConfig;
-const msgs = require('./messages.json');
+const msg = require('./messageHandler');
 module.exports.logger = logger;
 module.exports.config = config;
 module.exports.wlConfig = wlConfig;
@@ -41,7 +41,7 @@ client.on('message', (message) => {
         message.reply({
             embed: {
                 title: 'Invalid Command',
-                description: msgs.errors.invalid_command.replace('{command}', `\`${config.data.prefix}help\``),
+                description: msg.get('errors.invalid_command', { command : `\`${config.data.prefix}help\``}),
                 footer: { text: `Requested by ${message.member.displayName || message.member.user.username}` },
                 color: 'YELLOW',
             },
