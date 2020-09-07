@@ -1,9 +1,16 @@
 const Discord = require('discord.js');
+const parser = require('yargs-parser');
+const msgs = require('./messages.json');
 const logger = require('./logger.js');
+module.exports.logger = logger;
+
+process.argv.splice(0, 2);
+const args_ = parser(process.argv);
+module.exports.args = args_;
+
 const config = require('./utils.js').Config;
 const wlConfig = require('./utils.js').WLConfig;
 const msg = require('./messageHandler');
-module.exports.logger = logger;
 module.exports.config = config;
 module.exports.wlConfig = wlConfig;
 
@@ -13,7 +20,8 @@ const token = process.env.token || require('./credentials.json').token;
 const CommandHandler = require('./handlers/CommandHandler.js');
 
 const client = new Discord.Client();
-client.prefix = config.data.prefix;
+if (args_.prefix) client.prefix = args_.prefix;
+else client.prefix = config.data.prefix;
 client.commands = CommandHandler.register(client);
 
 client.on('ready', () => {
@@ -22,7 +30,8 @@ client.on('ready', () => {
     client.user.setActivity('Online!');
     setTimeout(() => {
         client.user.setActivity(config.data.status);
-        client.prefix = config.data.prefix;
+        if (args_.prefix) client.prefix = args_.prefix;
+        else client.prefix = config.data.prefix;
     }, 5000);
 });
 
