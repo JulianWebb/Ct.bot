@@ -1,5 +1,11 @@
 let messages = require('./messages.json');
 
+/**
+ * @param {(string|string[])} key - the location of the string in messages.json 
+ * @param {Object} vars - Strings to replace the {variables} in the messages.json string
+ * @returns {String} - The combined message
+ * Used to create messages from pre-defined strings in messages.json and variables passed in 
+ */
 function getMessage(key, vars) {
     if (typeof key == "string") {
         key = key.split('.');
@@ -27,6 +33,13 @@ function getMessage(key, vars) {
     return message;
 }
 
+/**
+ * 
+ * @param {string} id - The log identifier, generally the name of the module or command
+ * @param {string} message - The message to be added
+ * @returns {string} - The resulting combined string
+ * Just a helper function to keep things a bit DRYer
+ */
 function logMessage(id, message) {
     return getMessage('log', { id: id, msg: message})
 }
