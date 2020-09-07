@@ -2,7 +2,7 @@ let messages = require('./messages.json');
 
 /**
  * @param {(string|string[])} key - the location of the string in messages.json 
- * @param {Object} vars - Strings to replace the {variables} in the messages.json string
+ * @param {Object} [vars] - Strings to replace the {variables} in the messages.json string
  * @returns {String} - The combined message
  * Used to create messages from pre-defined strings in messages.json and variables passed in 
  */
