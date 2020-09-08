@@ -7,7 +7,7 @@ module.exports = {
     adminOnly: true,
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
-            const amount = Number.parseInt(args[0]);
+            let amount = Number.parseInt(args[0]);
             if (!amount)
                 return {
                     embed: {
@@ -18,13 +18,15 @@ module.exports = {
                     },
                 };
 
-            message.channel.bulkDelete(Math.abs(amount)).then((messages) => {
+            if (amount + 1 >= 100) amount = 99;
+
+            message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
                 logger.success(`${message.member.user.tag} successfully deleted ${messages.size} messages.`);
                 message
                     .reply({
                         embed: {
                             title: 'Success',
-                            description: `Deleted ${messages.size} messages.`,
+                            description: `Deleted ${messages.size - 1} messages.`,
                             footer: { text: `Requested by ${message.member.displayName || message.member.user.username}` },
                             color: 'AQUA',
                         },
