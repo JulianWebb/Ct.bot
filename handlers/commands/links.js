@@ -5,6 +5,7 @@ module.exports = {
     name: 'links',
     description: 'All ct.js related links',
     usage: `${config.data.prefix}links <optional: link type>`,
+    aliases: ['link', 'l'],
     adminOnly: false,
     run(message, args) {
         if (args[0]) {

@@ -22,7 +22,8 @@ const CommandHandler = require('./handlers/CommandHandler.js');
 const client = new Discord.Client();
 if (args_.prefix) client.prefix = args_.prefix;
 else client.prefix = config.data.prefix;
-client.commands = CommandHandler.register(client);
+client.commands = CommandHandler.register();
+client.aliases = CommandHandler.registerAliases(client.commands);
 
 client.on('ready', () => {
     logger.info(`[Ct.bot v${require('./package.json').version} started at ${new Date()}]`);
@@ -46,6 +47,10 @@ client.on('message', (message) => {
         if (message.channel.type === 'dm') return message.reply('Guild-only command.');
 
         client.commands.get(command).run(message, args);
+    } else if (client.aliases.has(command)) {
+        if (message.channel.type === 'dm') return message.reply('Guild-only command.');
+
+        client.aliases.get(command).run(message, args);
     } else {
         message.reply({
             embed: {

@@ -4,7 +4,7 @@ const Collection = require('discord.js').Collection;
 const { logger } = require('../index.js');
 
 module.exports = {
-    register(client) {
+    register() {
         const commandFilesDir = path.join(__dirname, 'commands');
         const commands = new Collection();
 
@@ -16,5 +16,15 @@ module.exports = {
             logger.info(`Registered command: ${command.name}`);
         }
         return commands;
+    },
+    registerAliases(commands) {
+        const aliases = new Collection();
+
+        commands.each((command) => {
+            for (const alias of command.aliases) {
+                aliases.set(alias, command);
+            }
+        });
+        return aliases;
     },
 };

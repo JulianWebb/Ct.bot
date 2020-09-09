@@ -8,6 +8,8 @@ const imagePattern = /!\[(?<title>[^\r\n]*?)\]\((?<link>[\s\S]+?)\)/g;
 module.exports = {
     name: 'example',
     description: 'View examples by keyword.',
+    aliases: ['e', 'ex', 'examples'],
+    admin_only: false,
     async run(message, args) {
         const examples = await getAllExamples();
         if (!args || !args.length) {

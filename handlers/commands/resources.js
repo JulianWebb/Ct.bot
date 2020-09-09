@@ -5,6 +5,7 @@ module.exports = {
     name: 'resources',
     description: 'All community resources',
     usage: `${config.data.prefix}resources`,
+    aliases: ['r', 'res', 'resource'],
     adminOnly: false,
     run(message, args) {
         const linkEmbed = {

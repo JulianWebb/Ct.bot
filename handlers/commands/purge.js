@@ -4,6 +4,7 @@ module.exports = {
     name: 'purge',
     description: 'Clears messages',
     usage: `${config.data.prefix}purge [amount]`,
+    aliases: ['p', 'nuke'],
     adminOnly: true,
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {

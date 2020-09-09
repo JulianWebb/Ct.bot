@@ -4,6 +4,7 @@ module.exports = {
     name: 'help',
     description: 'Displays usage for all commands or specific ones',
     usage: `${config.data.prefix}help [command]`,
+    aliases: ['h', '?'],
     adminOnly: false,
     run(message, args) {
         const commands = message.client.commands;
@@ -34,6 +35,7 @@ module.exports = {
             const cmd = args[0].toLowerCase();
             if (commands.get(cmd)) {
                 const command = commands.get(cmd);
+                const aliases = command.aliases.join(', ');
                 const helpEmbed = {
                     color: 'BLUE',
                     title: `🔷 ${command.name.toUpperCase()} 🔷`,
@@ -47,6 +49,10 @@ module.exports = {
                             name: 'Admins only?',
                             value: `\`\`\`${command.adminOnly}\`\`\``,
                         },
+                        {
+                            name: 'Aliases',
+                            value: `\`\`\`${aliases}\`\`\``
+                        }
                     ],
                     timestamp: new Date(),
                     footer: {
