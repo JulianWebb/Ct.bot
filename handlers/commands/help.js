@@ -8,6 +8,7 @@ module.exports = {
     adminOnly: false,
     run(message, args) {
         const commands = message.client.commands;
+        const aliases = message.client.aliases;
         if (!(args.length > 0)) {
             const helpEmbed = {
                 color: 'BLUE',
@@ -31,55 +32,55 @@ module.exports = {
             });
             return message.channel.send({ embed: helpEmbed });
         }
-        if (args.length > 0) {
-            const cmd = args[0].toLowerCase();
-            if (commands.get(cmd)) {
-                const command = commands.get(cmd);
-                const aliases = command.aliases.join(', ');
-                const helpEmbed = {
-                    color: 'BLUE',
-                    title: `🔷 ${command.name.toUpperCase()} 🔷`,
-                    description: `\`\`\`${command.description}\`\`\``,
-                    fields: [
-                        {
-                            name: 'Usage',
-                            value: `\`\`\`${command.usage}\`\`\``,
-                        },
-                        {
-                            name: 'Admins only?',
-                            value: `\`\`\`${command.adminOnly}\`\`\``,
-                        },
-                        {
-                            name: 'Aliases',
-                            value: `\`\`\`${aliases}\`\`\``
-                        }
-                    ],
-                    timestamp: new Date(),
-                    footer: {
-                        text: `Requested by ${message.member.displayName}`,
-                        icon_url: message.author.displayAvatarURL({
-                            dynamic: true,
-                        }),
+        
+        const cmd = args[0].toLowerCase();
+        const command = aliases.get(cmd)? commands.get(aliases.get(cmd).name): commands.get(cmd);
+
+        if (command) {
+            const cmdAliases = command.aliases.join(', ');
+            const helpEmbed = {
+                color: 'BLUE',
+                title: `🔷 ${command.name.toUpperCase()} 🔷`,
+                description: `\`\`\`${command.description}\`\`\``,
+                fields: [
+                    {
+                        name: 'Usage',
+                        value: `\`\`\`${command.usage}\`\`\``,
                     },
-                };
-                return message.channel.send({ embed: helpEmbed });
-            } else {
-                const errorEmbed = {
-                    title: 'Invalid Command',
-                    color: 'RED',
-                    description: msg.get('errors.invalid_command', { command: `\`${config.data.prefix}help\`` }),
-                    timestamp: new Date(),
-                    footer: {
-                        text: `Requested by ${message.member.displayName}`,
-                        icon_url: message.author.displayAvatarURL({
-                            dynamic: true,
-                        }),
+                    {
+                        name: 'Admins only?',
+                        value: `\`\`\`${command.adminOnly}\`\`\``,
                     },
-                };
-                return message.reply({
-                    embed: errorEmbed,
-                });
-            }
+                    {
+                        name: 'Aliases',
+                        value: `\`\`\`${cmdAliases}\`\`\``
+                    }
+                ],
+                timestamp: new Date(),
+                footer: {
+                    text: `Requested by ${message.member.displayName}`,
+                    icon_url: message.author.displayAvatarURL({
+                        dynamic: true,
+                    }),
+                },
+            };
+            return message.channel.send({ embed: helpEmbed });
+        } else {
+            const errorEmbed = {
+                title: 'Invalid Command',
+                color: 'RED',
+                description: msg.get('errors.invalid_command', { command: `\`${config.data.prefix}help\`` }),
+                timestamp: new Date(),
+                footer: {
+                    text: `Requested by ${message.member.displayName}`,
+                    icon_url: message.author.displayAvatarURL({
+                        dynamic: true,
+                    }),
+                },
+            };
+            return message.reply({
+                embed: errorEmbed,
+            });
         }
     },
 };
