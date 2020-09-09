@@ -34,12 +34,9 @@ module.exports = {
         }
         
         const cmd = args[0].toLowerCase();
-        
-        isAlias = aliases.get(cmd);
-        const command = isAlias? commands.get(aliases.get(cmd).name): commands.get(cmd);
+        const command = aliases.get(cmd)? commands.get(aliases.get(cmd).name): commands.get(cmd);
 
-        if (commands.get(cmd) || aliases.get(cmd)) {
-            
+        if (command) {
             const cmdAliases = command.aliases.join(', ');
             const helpEmbed = {
                 color: 'BLUE',
