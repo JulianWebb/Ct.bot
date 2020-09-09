@@ -4,7 +4,7 @@ module.exports = {
     name: 'help',
     description: 'Displays usage for all commands or specific ones',
     usage: `${config.data.prefix}help [command]`,
-    aliases: ['h', '?'],
+    aliases: [],
     adminOnly: false,
     run(message, args) {
         const commands = message.client.commands;
