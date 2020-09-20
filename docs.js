@@ -19,7 +19,7 @@
  * @property {string} pageTitle The page title.
  * @property {string} lines The content of the example.
  * @property {string} url The url to the page with the example.
- * @property {string} hash TODO:The hash to the example.
+ * @property {string} hash TODO: The hash to the example.
  */
 
 /**
@@ -82,6 +82,7 @@ const toDocSlug = (title) =>
             .replace(/^#+\s?/, '')
             .replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)')
             .replace(/\./g, '-')
+            .replace(/-+/g, '-')
             .replace(/[()]/g, ' ')
             .trim()
             .toLowerCase(),
