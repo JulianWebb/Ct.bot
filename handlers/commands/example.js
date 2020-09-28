@@ -11,7 +11,7 @@ module.exports = {
     description: 'View examples by keyword.',
     aliases: ['e', 'ex', 'examples'],
     admins_only: false,
-    usage: `{config.data.prefix}example <topic>`,
+    usage: `${config.data.prefix}example <topic>`,
     async run(message, args) {
         // DISABLED FOR NOW
         return;
