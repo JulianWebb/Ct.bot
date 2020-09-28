@@ -17,7 +17,7 @@ module.exports = {
                 embed: {
                     color: 'AQUA',
                     title: `We have ${examples.length} examples in total`,
-                    description: 'Add a keyword after the command to filter them, or run `${message.client.prefix}example list` to list them.',
+                    description: `Add a keyword after the command to filter them, or run \`${message.client.prefix}example list\` to list them.`,
                     footer: 'Example: `${message.client.prefix}example module`',
                 },
             });
