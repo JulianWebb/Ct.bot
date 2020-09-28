@@ -53,7 +53,7 @@ module.exports = {
                     },
                     {
                         name: 'Aliases',
-                        value: cmdAliases === '' ? cmdAliases : `\`\`\`${cmdAliases}\`\`\``
+                        value: `${cmdAliases}`
                     }
                 ],
                 timestamp: new Date(),
