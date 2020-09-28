@@ -11,7 +11,9 @@ module.exports = {
     aliases: ['e', 'ex', 'examples'],
     admin_only: false,
     async run(message, args) {
-        const examples = await getAllExamples();
+        // DISABLED FOR NOW
+        return;
+        const examples = await getAllExamples().catch(err => console.log(err));
         if (!args || !args.length) {
             message.channel.send({
                 embed: {
