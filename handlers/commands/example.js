@@ -1,4 +1,5 @@
 const { getAllExamples } = require('../../docs.js');
+const { config } = require('../../index.js');
 require('natures-jsutils');
 
 const cleanTitle = (title) => title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
@@ -9,7 +10,8 @@ module.exports = {
     name: 'example',
     description: 'View examples by keyword.',
     aliases: ['e', 'ex', 'examples'],
-    admin_only: false,
+    admins_only: false,
+    usage: `{config.data.prefix}example <topic>`,
     async run(message, args) {
         // DISABLED FOR NOW
         return;
