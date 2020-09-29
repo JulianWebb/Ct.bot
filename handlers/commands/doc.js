@@ -9,7 +9,7 @@ module.exports = {
     name: 'doc',
     description: 'View documentation topics by keyword.',
     aliases: ['d', 'docs'],
-    admin_only: false,
+    adminOnly: false,
     async run(message, args) {
         if (!args || !args.length) {
             message.channel.send({

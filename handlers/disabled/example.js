@@ -10,12 +10,10 @@ module.exports = {
     name: 'example',
     description: 'View examples by keyword.',
     aliases: ['e', 'ex', 'examples'],
-    admins_only: false,
+    adminOnly: false,
     usage: `${config.data.prefix}example <topic>`,
     async run(message, args) {
-        // DISABLED FOR NOW
-        return;
-        const examples = await getAllExamples().catch(err => console.log(err));
+        const examples = await getAllExamples();
         if (!args || !args.length) {
             message.channel.send({
                 embed: {

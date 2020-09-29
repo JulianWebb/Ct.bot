@@ -26,7 +26,7 @@ client.commands = CommandHandler.register();
 client.aliases = CommandHandler.registerAliases(client.commands);
 
 client.on('ready', () => {
-    logger.info(`[Ct.bot v${require('./package.json').version} started at ${new Date()}]`);
+    logger.info(`[Ct.bot started at ${new Date()}]`);
     logger.success('Online!');
     client.user.setActivity('Online!');
     setTimeout(() => {
