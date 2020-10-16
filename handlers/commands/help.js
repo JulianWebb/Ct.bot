@@ -1,10 +1,11 @@
 const { config } = require('../../index.js');
+const msgs = require('../../messageHandler.js');
 
 module.exports = {
     name: 'help',
     description: 'Displays usage for all commands or specific ones',
     usage: `${config.data.prefix}help [command]`,
-    aliases: [],
+    aliases: ['h'],
     adminOnly: false,
     run(message, args) {
         const commands = message.client.commands;
@@ -32,9 +33,9 @@ module.exports = {
             });
             return message.channel.send({ embed: helpEmbed });
         }
-        
+
         const cmd = args[0].toLowerCase();
-        const command = aliases.get(cmd)? commands.get(aliases.get(cmd).name): commands.get(cmd);
+        const command = aliases.get(cmd) ? commands.get(aliases.get(cmd).name) : commands.get(cmd);
 
         if (command) {
             const cmdAliases = command.aliases.join(', ');
@@ -53,8 +54,8 @@ module.exports = {
                     },
                     {
                         name: 'Aliases',
-                        value: `${cmdAliases}`
-                    }
+                        value: `${cmdAliases}`,
+                    },
                 ],
                 timestamp: new Date(),
                 footer: {
@@ -69,7 +70,7 @@ module.exports = {
             const errorEmbed = {
                 title: 'Invalid Command',
                 color: 'RED',
-                description: msg.get('errors.invalid_command', { command: `\`${config.data.prefix}help\`` }),
+                description: msgs.get('errors.invalid_command', { command: `\`${config.data.prefix}help\`` }),
                 timestamp: new Date(),
                 footer: {
                     text: `Requested by ${message.member.displayName}`,

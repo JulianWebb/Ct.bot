@@ -10,7 +10,7 @@ module.exports = {
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
             let amount = Number.parseInt(args[0]);
             let channel_id = args[1].replace(/\D/g, '');
-            message.channel.messages.fetch(channel_id)
+            message.channel.messages.fetch(channel_id);
             if (!amount)
                 return message.channel.send({
                     embed: {
@@ -18,16 +18,15 @@ module.exports = {
                         description: 'Please supply a valid amount',
                         footer: { text: `Requested by ${message.member.displayName || message.member.user.username}` },
                         color: 'RED',
-                    }
+                    },
                 });
 
-        if (amount + 1 >= 100) amount = 99;
-        const channel = message.guild.channels.cache.get(channel_id);
-        if (channel) {
-
-            message.channel.messages.fetch({ limit: amount })
-                .then(messages => {
-                    messages.forEach(msg => {
+            amount++;
+            if (amount >= 100) amount = 100;
+            const channel = message.guild.channels.cache.get(channel_id);
+            if (channel) {
+                message.channel.messages.fetch({ limit: amount }).then((messages) => {
+                    messages.forEach((msg) => {
                         channel.send({
                             embed: {
                                 color: 0x0099ff,
@@ -40,24 +39,24 @@ module.exports = {
                         });
                     });
                 });
-            try {
-                message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
-                    message.channel.send('👌');
-                });
-            } catch (e) {
-                message.channel.send('❗ Could not delete old messages!');
+                try {
+                    message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
+                        message.channel.send('👌');
+                    });
+                } catch (e) {
+                    message.channel.send('❗ Could not delete old messages!');
+                }
+            } else {
+                return message.channel.send('No such channel exists!');
             }
-
         } else {
-            return message.channel.send('No such channel exists!');
+            return message.reply({
+                embed: {
+                    title: 'Error',
+                    color: 'RED',
+                    description: 'You do not have permission to use this command!',
+                },
+            });
         }
-    } else {
-        return message.reply({
-            embed: {
-                title: 'Error',
-                color: 'RED',
-                description: 'You do not have permission to use this command!',
-            },
-        })
-    }
-}};
+    },
+};
