@@ -3,7 +3,14 @@ const { getAllHeadings } = require('../../docs.js');
 const slugger = require('github-slugger');
 
 const cleanTitle = (title) => title.replace(/^#+\s?/, '').replace(/<badge>([\s\S]+?)<\/badge>/gi, '($1)');
-const toDocSlug = (title) => slugger.slug(cleanTitle(title).replace(/\./g, '-').replace(/[()]/g, ' ').trim().toLowerCase());
+const toDocSlug = (title) =>
+    slugger.slug(
+        cleanTitle(title)
+            .replace(/\./g, '-')
+            .replace(/[()]/g, ' ')
+            .trim()
+            .toLowerCase(),
+    );
 
 module.exports = {
     name: 'doc',

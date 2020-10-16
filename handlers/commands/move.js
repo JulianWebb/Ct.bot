@@ -9,7 +9,7 @@ module.exports = {
     run(message, args) {
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
             let amount = Number.parseInt(args[0]);
-            let channel_id = args[1].replace(/\D/g, '');
+            const channel_id = args[1].replace(/\D/g, '');
             message.channel.messages.fetch(channel_id);
             if (!amount)
                 return message.channel.send({

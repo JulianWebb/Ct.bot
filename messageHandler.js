@@ -1,10 +1,10 @@
 const messages = require('./messages.json');
 
 /**
- * @param {(string|string[])} key - The location of the string in messages.json
- * @param {Object} [vars] - Strings to replace the {variables} in the messages.json string
- * @returns {String} - The combined message
- * Used to create messages from pre-defined strings in messages.json and variables passed in
+ * @param {(string|string[])} key - The location of the string in messages.json.
+ * @param {object} [vars] - Strings to replace the {variables} in the messages.json string.
+ * @returns {string} - The combined message
+ * Used to create messages from pre-defined strings in messages.json and variables passed in.
  */
 function getMessage(key, vars) {
     if (typeof key == 'string') {

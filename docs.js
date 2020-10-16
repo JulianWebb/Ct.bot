@@ -167,9 +167,12 @@ const getAllExamplesFromFile = function getAllExamplesFromFile(file) {
         pushing: false,
         currentResult: false,
     };
-    const pushResult = function () {
+    const pushResult = function() {
         results.push(state.currentResult);
-        state.currentResult.lines = state.currentResult.lines.slice(1).join('\n').trim();
+        state.currentResult.lines = state.currentResult.lines
+            .slice(1)
+            .join('\n')
+            .trim();
         state.currentResult = false;
     };
     for (let i = 0; i < lines.length; i++) {

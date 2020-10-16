@@ -26,7 +26,7 @@ module.exports = {
             return;
         }
 
-        const listReturnValue = await (async function () {
+        const listReturnValue = await (async function() {
             if (args[0] === 'list') {
                 const exampleTitles = [];
                 for (const example of examples) {

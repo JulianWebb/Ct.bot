@@ -40,7 +40,10 @@ client.on('message', (message) => {
     // Don't allow bots to trigger commands or non-command messages
     if (!message.content.startsWith(client.prefix) || message.author.bot) return;
 
-    const args = message.content.slice(client.prefix.length).trim().split(/ +/);
+    const args = message.content
+        .slice(client.prefix.length)
+        .trim()
+        .split(/ +/);
     const command = args.shift().toLowerCase();
 
     if (client.commands.has(command)) {

@@ -23,6 +23,9 @@ module.exports = {
     database,
     app,
     createAnswer(question, answer) {
-        database.child('questions').child(question).set(answer);
+        database
+            .child('questions')
+            .child(question)
+            .set(answer);
     },
 };
