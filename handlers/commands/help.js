@@ -54,7 +54,7 @@ module.exports = {
                     },
                     {
                         name: 'Aliases',
-                        value: `${cmdAliases}`,
+                        value: `\`\`\`${cmdAliases}\`\`\``,
                     },
                 ],
                 timestamp: new Date(),
