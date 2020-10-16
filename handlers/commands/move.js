@@ -7,9 +7,7 @@ module.exports = {
     aliases: ['mt', 'moveto'],
     adminOnly: true,
     run(message, args) {
-        console.log('works');
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
-            console.log('works 2');
             let amount = Number.parseInt(args[0]);
             let channel_id = args[1].replace(/\D/g, '');
             message.channel.messages.fetch(channel_id)
@@ -42,9 +40,14 @@ module.exports = {
                         });
                     });
                 });
-            message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
-                message.channel.send('👌');
-            });
+            try {
+                message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
+                    message.channel.send('👌');
+                });
+            } catch (e) {
+                message.channel.send('❗ Could not delete old messages!');
+            }
+
         } else {
             return message.channel.send('No such channel exists!');
         }
