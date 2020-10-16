@@ -11,8 +11,8 @@ module.exports = {
         if (message.member.permissions.has('ADMINISTRATOR') || wlConfig.data.administrators.includes(message.member.id)) {
             console.log('works 2');
             let amount = Number.parseInt(args[0]);
-            let channel_id = message.content.replace(/\D/g, '');
-            message.channel.send(channel_id)
+            let channel_id = args[1].replace(/\D/g, '');
+            message.channel.messages.fetch(channel_id)
             if (!amount)
                 return message.channel.send({
                     embed: {
@@ -27,7 +27,7 @@ module.exports = {
         const channel = message.guild.channels.cache.get(channel_id);
         if (channel) {
 
-            message.fetchMessages({ limit: amount })
+            message.channel.messages.fetch({ limit: amount })
                 .then(messages => {
                     messages.forEach(msg => {
                         channel.send({
@@ -43,7 +43,7 @@ module.exports = {
                     });
                 });
             message.channel.bulkDelete(Math.abs(amount + 1)).then((messages) => {
-                message.react('👌');
+                message.channel.send('👌');
             });
         } else {
             return message.channel.send('No such channel exists!');
