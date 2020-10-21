@@ -4,7 +4,7 @@ const Collection = require('discord.js').Collection;
 const { logger } = require('../index.js');
 
 module.exports = {
-    register() {
+    register(client) {
         const commandFilesDir = path.join(__dirname, 'commands');
         const commands = new Collection();
 
@@ -12,6 +12,9 @@ module.exports = {
 
         for (const file of commandFiles) {
             const command = require(`${commandFilesDir}/${file}`);
+            if (init in command) {
+                command.init(client, command);
+            }
             commands.set(command.name, command);
             logger.info(`Registered command: ${command.name}`);
         }

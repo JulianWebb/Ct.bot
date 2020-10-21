@@ -22,7 +22,7 @@ const CommandHandler = require('./handlers/CommandHandler.js');
 const client = new Discord.Client();
 if (args_.prefix) client.prefix = args_.prefix;
 else client.prefix = config.data.prefix;
-client.commands = CommandHandler.register();
+client.commands = CommandHandler.register(client);
 client.aliases = CommandHandler.registerAliases(client.commands);
 
 client.on('ready', () => {
